@@ -38,7 +38,6 @@
   "author": "Directly Team",
   "license": "ISC",
   "dependencies": {
-    "@types/passport-jwt": "^3.0.1",
     "auth0": "^2.9.1",
     "cross-env": "^5.1.4",
     "dotenv": "^5.0.1",
@@ -68,7 +67,6 @@
   },
   "devDependencies": {
     "@types/auth0": "^2.7.1",
-    "@types/aws-sdk": "^2.7.0",
     "@types/chai": "^4.1.2",
     "@types/colors": "^1.2.1",
     "@types/dotenv": "^4.0.2",

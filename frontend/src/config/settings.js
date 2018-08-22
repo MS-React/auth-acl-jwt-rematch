@@ -1,7 +1,7 @@
 const environmentSettings = {
   local: {
     SERVICE: {
-      BASE_URL: 'https://localhost:3030/',
+      BASE_URL: 'https://localhost:3030/service',
     },
   },
   dev: {
