@@ -11,6 +11,10 @@ export abstract class BaseService<EntityModel> {
   public async getById(_id: string): Promise<EntityModel> {
     return this.repository.findOne({ _id });
   }
+  
+  public async login(body: { name: string }): Promise<EntityModel> {
+    return this.repository.findOne(body);
+  }
 
   public async getPaginated(
     page: number,
