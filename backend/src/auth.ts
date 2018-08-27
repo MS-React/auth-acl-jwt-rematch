@@ -18,11 +18,9 @@ export async function expressAuthentication(request: Request, securityName: stri
             if (err) {
                 reject(err);
             } else {
-                // for (let scope of scopes) {
-                //     if (!decoded.scopes.includes(scope)) {
-                //       reject(new Error('JWT does not contain required scope.'));
-                //     }
-                // }
+                if (!scopes.indexOf(decoded.rol)) {
+                  reject(new Error('JWT does not contain required scope.'));
+                }
                 resolve(decoded);
             }
         });
