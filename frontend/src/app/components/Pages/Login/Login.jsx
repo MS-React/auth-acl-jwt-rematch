@@ -10,7 +10,7 @@ class Login extends React.PureComponent {
     login: PropTypes.func.isRequired,
     User: PropTypes.shape({
       logged: PropTypes.bool,
-      error: PropTypes.string,
+      error: PropTypes.object,
     }).isRequired,
   };
 
@@ -45,7 +45,7 @@ class Login extends React.PureComponent {
     return (
       <div className="login">
         <div className="message">
-          {this.props.User.error}
+          {this.props.User.error && this.props.User.error.data.message}
         </div>
         <form id="login-form">
           <div className="input">

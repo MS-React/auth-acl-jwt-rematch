@@ -6,8 +6,9 @@ const loginRequest = (name, password) => ({
   },
 });
 
-const loginSuccess = ({
+const loginSuccess = user => ({
   type: 'AUTHENTICATION_SUCCESS',
+  user,
 });
 
 const loginFail = error => ({

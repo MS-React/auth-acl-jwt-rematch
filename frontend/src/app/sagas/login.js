@@ -6,9 +6,9 @@ export function* loginRequest(action) {
 
   try {
     const response = yield call(apiService.login, { data: { name, password } });
-    // localStorage.setItem(config.ID_TOKEN_NAME, response.id_token);
-    yield put({ type: 'AUTHENTICATION_SUCCESS', response });
+    localStorage.setItem('jwt-token-id', response.jwtSignature);
+    yield put({ type: 'AUTHENTICATION_SUCCESS', user: response.payload });
   } catch (e) {
-    yield put({ type: 'AUTHENTICATION_FAIL', error: e.message });
+    yield put({ type: 'AUTHENTICATION_FAIL', error: e.response });
   }
 }

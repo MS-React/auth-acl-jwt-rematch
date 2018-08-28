@@ -12,7 +12,7 @@ export abstract class BaseService<EntityModel> {
     return this.repository.findOne({ _id });
   }
   
-  public async login(body: { name: string }): Promise<EntityModel> {
+  public async login(body: { name: string, password: string }): Promise<EntityModel> {
     return this.repository.findOne(body);
   }
 

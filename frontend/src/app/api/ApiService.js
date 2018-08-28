@@ -18,12 +18,12 @@ class ApiService {
       headers: {
         Accept: 'application/json',
       },
-    }).then(res => res.data);
+    }).then(response => ({ response }));
   };
 
   login = async (options) => {
     const { data } = options;
-    return this.request({ method: 'POST', url: `/auth/login`, data }).then(response => response.data);
+    return this.request({ method: 'POST', url: `/auth/login`, data });
   }
 }
 
