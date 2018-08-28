@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  BrowserRouter as Router, Switch, Link,
+  BrowserRouter as Router, Switch,
 } from 'react-router-dom';
 
 import { createRoute } from '../Routes';
 import routes from '../../../config/routes';
+
+import NavBar from '../NavBar';
 
 import '../../assets/styles/global.scss';
 
@@ -25,19 +27,18 @@ class Main extends React.PureComponent {
 
   render() {
     return (
-      <main className="game-container">
+      <main className="app-container">
         <Router>
-          <div>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-            </ul>
+          <React.Fragment>
+            <NavBar
+              routes={routes}
+              user={this.props.User}
+            />
             <hr />
             <Switch>
               {routes.map(route => createRoute(route, this.props.User.logged))}
             </Switch>
-          </div>
+          </React.Fragment>
         </Router>
       </main>
     );

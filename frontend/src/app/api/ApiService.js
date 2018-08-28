@@ -18,7 +18,7 @@ class ApiService {
       headers: {
         Accept: 'application/json',
       },
-    }).then(response => ({ response }));
+    }).then(response => response.data);
   };
 
   login = async (options) => {
