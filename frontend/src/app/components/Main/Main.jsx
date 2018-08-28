@@ -1,25 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   BrowserRouter as Router, Switch, Link,
 } from 'react-router-dom';
 
-import { PrivateRoute, PublicRoute } from '../Routes';
-import * as Pages from '../Pages';
+import { createRoute } from '../Routes';
 import routes from '../../../config/routes';
 
 import '../../assets/styles/global.scss';
 
-function createRoute(route, isAuth) {
-  const PageComponent = Pages[route.page];
-  const Route = route.protected ? PrivateRoute : PublicRoute;
-  const props = Object.assign({}, route, isAuth);
-  return <Route key={`${route.page}-key`} component={PageComponent} {...props} />;
-}
+class Main extends React.PureComponent {
+  static propTypes = {
+    User: PropTypes.shape({
+      logged: PropTypes.bool,
+    }),
+  };
 
-export default class Main extends React.PureComponent {
-  state = {
-    isAuth: false,
-  }
+  static defaultProps = {
+    User: {
+      logged: false,
+    },
+  };
 
   render() {
     return (
@@ -33,7 +35,7 @@ export default class Main extends React.PureComponent {
             </ul>
             <hr />
             <Switch>
-              {routes.map(route => createRoute(route, this.state.isAuth))}
+              {routes.map(route => createRoute(route, this.props.User.logged))}
             </Switch>
           </div>
         </Router>
@@ -41,3 +43,9 @@ export default class Main extends React.PureComponent {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  User: state.User,
+});
+
+export default connect(mapStateToProps, {})(Main);

@@ -1,15 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-export default class Login extends React.PureComponent {
+import Actions from '../../../actions';
+
+class Login extends React.PureComponent {
   static propTypes = {
     login: PropTypes.func.isRequired,
+    User: PropTypes.shape({
+      logged: PropTypes.bool,
+      error: PropTypes.string,
+    }).isRequired,
   };
 
-  state = {
-    username: '',
-    password: '',
-  };
+  constructor(props) {
+    super(props);
+    this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      name: '',
+      password: '',
+    };
+  }
 
   handleInput(event) {
     this.setState({
@@ -19,22 +32,28 @@ export default class Login extends React.PureComponent {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { username, password } = this.state;
+    const { name, password } = this.state;
 
-    // @TODO: add validation
-    this.props.login(username, password);
+    this.props.login(name, password);
   }
 
   render() {
+    if (this.props.User.logged) {
+      return <Redirect to={{ pathname: '/' }} />;
+    }
+
     return (
       <div className="login">
+        <div className="message">
+          {this.props.User.error}
+        </div>
         <form id="login-form">
           <div className="input">
-            <span>Username</span>
-            <input type="text" id="username" onChange={this.handleInput} />
+            <span>Name</span><br />
+            <input type="text" id="name" onChange={this.handleInput} />
           </div>
           <div className="input">
-            <span>Password</span>
+            <span>Password</span><br />
             <input type="text" id="password" onChange={this.handleInput} />
           </div>
           <div className="form-action">
@@ -45,3 +64,13 @@ export default class Login extends React.PureComponent {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  User: state.User,
+});
+
+const mapDispatchToProps = dispatch => ({
+  login: (name, password) => dispatch(Actions.User.loginRequest(name, password)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
