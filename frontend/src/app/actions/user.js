@@ -6,23 +6,17 @@ const loginRequest = (name, password) => ({
   },
 });
 
-const loginSuccess = user => ({
-  type: 'AUTHENTICATION_SUCCESS',
-  user,
-});
-
-const loginFail = error => ({
-  type: 'AUTHENTICATION_FAIL',
-  error,
-});
-
 const logout = ({
   type: 'AUTHENTICATION_LOGOUT',
 });
 
+const getUsers = params => ({
+  type: 'GET_ALL_USERS_REQUEST',
+  params,
+});
+
 export default {
   loginRequest,
-  loginSuccess,
-  loginFail,
   logout,
+  getUsers,
 };

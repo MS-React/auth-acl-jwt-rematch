@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 const NavBar = ({ routes, user }) => (
   <ul>
     {routes.filter(route => { // eslint-disable-line
-      if (user.user && user.logged) {
+      if (user && user.logged) {
         if (route.logged) {
-          return route.roles.includes(user.user.rol);
+          return route.roles.includes(user.rol);
         }
       } else {
         return !route.logged;

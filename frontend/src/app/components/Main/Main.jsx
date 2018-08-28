@@ -14,13 +14,13 @@ import '../../assets/styles/global.scss';
 
 class Main extends React.PureComponent {
   static propTypes = {
-    User: PropTypes.shape({
+    user: PropTypes.shape({
       logged: PropTypes.bool,
     }),
   };
 
   static defaultProps = {
-    User: {
+    user: {
       logged: false,
     },
   };
@@ -32,11 +32,11 @@ class Main extends React.PureComponent {
           <React.Fragment>
             <NavBar
               routes={routes}
-              user={this.props.User}
+              user={this.props.user}
             />
             <hr />
             <Switch>
-              {routes.map(route => createRoute(route, this.props.User.logged))}
+              {routes.map(route => createRoute(route, this.props.user.logged))}
             </Switch>
           </React.Fragment>
         </Router>
@@ -46,7 +46,7 @@ class Main extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  User: state.User,
+  user: state.User,
 });
 
 export default connect(mapStateToProps, {})(Main);

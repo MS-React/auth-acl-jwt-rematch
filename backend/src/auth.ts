@@ -11,18 +11,11 @@ export async function expressAuthentication(request: Request, securityName: stri
     case 'jwt':
       const token = request.body.token || request.query.token || request.headers['x-access-token'];
       const response = new Promise<res>((resolve, reject) => {
-        if (!token) {
-          reject(new Error('No token provided'));
-        }
+        if (!token) reject(new Error('No token provided'));
         jwt.verify(token, 'somesecret', function (err: any, decoded: any) {
-            if (err) {
-                reject(err);
-            } else {
-                if (!scopes.indexOf(decoded.rol)) {
-                  reject(new Error('JWT does not contain required scope.'));
-                }
-                resolve(decoded);
-            }
+            if (err) reject(err);
+            if (!scopes.indexOf(decoded.rol)) reject(new Error('JWT does not contain required scope.'));
+            resolve(decoded);
         });
       });
       return response;
