@@ -11,3 +11,20 @@ export function* getUsers(action) {
     yield put({ type: 'GET_ALL_USERS_FAIL', error: e.response });
   }
 }
+
+
+export function createUser(action) {
+  console.log('create', action);
+}
+
+export function readUser(action) {
+  console.log('create', action);
+}
+
+export function updateUser(action) {
+  console.log('create', action);
+}
+
+export function deleteUser(action) {
+  console.log('create', action);
+}

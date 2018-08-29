@@ -2,51 +2,41 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  BrowserRouter as Router, Switch,
+  BrowserRouter,
+  Switch,
+  Route,
 } from 'react-router-dom';
+import PrivateRoute from '../Common/PrivateRoute';
+import LoginPage from '../Pages/Login';
+import NotFoundPage from '../Pages/NotFound';
+import HomePage from '../Pages/Home';
 
-import { createRoute } from '../Routes';
-import routes from '../../../config/routes';
+const Main = ({ auth }) => (
+  <main className="app-container">
+    <BrowserRouter>
+      <Switch>
+        <PrivateRoute exact path="/" component={HomePage} isAuthenticated={auth.logged} />
+        <Route path="/login" component={LoginPage} isAuthenticated={auth.logged} />
+        <Route component={NotFoundPage} />
+      </Switch>
+    </BrowserRouter>
+  </main>
+);
 
-import NavBar from '../NavBar';
+Main.propTypes = {
+  auth: PropTypes.shape({
+    logged: PropTypes.bool,
+  }),
+};
 
-import '../../assets/styles/global.scss';
-
-class Main extends React.PureComponent {
-  static propTypes = {
-    user: PropTypes.shape({
-      logged: PropTypes.bool,
-    }),
-  };
-
-  static defaultProps = {
-    user: {
-      logged: false,
-    },
-  };
-
-  render() {
-    return (
-      <main className="app-container">
-        <Router>
-          <React.Fragment>
-            <NavBar
-              routes={routes}
-              user={this.props.user}
-            />
-            <hr />
-            <Switch>
-              {routes.map(route => createRoute(route, this.props.user.logged))}
-            </Switch>
-          </React.Fragment>
-        </Router>
-      </main>
-    );
-  }
-}
+Main.defaultProps = {
+  auth: {
+    logged: false,
+  },
+};
 
 const mapStateToProps = state => ({
-  user: state.User,
+  auth: state.Auth,
 });
 
-export default connect(mapStateToProps, {})(Main);
+export default connect(mapStateToProps)(Main);

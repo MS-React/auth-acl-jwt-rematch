@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
+import FormInput from '../../Common/Form/FormInput';
 import Actions from '../../../actions';
+
+import './Login.scss';
 
 class Login extends React.PureComponent {
   static propTypes = {
     login: PropTypes.func.isRequired,
-    User: PropTypes.shape({
+    auth: PropTypes.shape({
       logged: PropTypes.bool,
       error: PropTypes.object,
     }).isRequired,
@@ -19,7 +22,7 @@ class Login extends React.PureComponent {
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      name: '',
+      username: '',
       password: '',
     };
   }
@@ -32,45 +35,68 @@ class Login extends React.PureComponent {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { name, password } = this.state;
+    const { username, password } = this.state;
 
-    this.props.login(name, password);
+    this.props.login(username, password);
   }
 
   render() {
-    if (this.props.User.logged) {
+    if (this.props.auth.logged) {
       return <Redirect to={{ pathname: '/' }} />;
     }
 
     return (
-      <div className="login">
-        <div className="message">
-          {this.props.User.error && this.props.User.error.data.message}
+      <section className="login-page">
+        <div className="login-page--form">
+          <div className="login-form">
+            <h1 className="h3 mb-3 font-weight-normal">
+              Please sign in
+            </h1>
+            <div className="message">
+              {this.props.auth.error && this.props.auth.error.data.message}
+            </div>
+            <form id="login-form" onSubmit={this.handleSubmit}>
+              <FormInput
+                inputId="username"
+                label="Username or email address"
+                onChange={this.handleInput}
+                type="text"
+                name="username"
+                placeholder="Username or email address"
+                value={this.state.username}
+              />
+              <FormInput
+                inputId="password"
+                label="Password"
+                onChange={this.handleInput}
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={this.state.password}
+              />
+              <span>
+                Hint:
+                <i>
+                  username/password
+                </i>
+              </span>
+              <button className="btn btn-lg btn-primary btn-block" type="submit">
+                Sign in
+              </button>
+            </form>
+          </div>
         </div>
-        <form id="login-form">
-          <div className="input">
-            <span>Name</span><br />
-            <input type="text" id="name" onChange={this.handleInput} />
-          </div>
-          <div className="input">
-            <span>Password</span><br />
-            <input type="text" id="password" onChange={this.handleInput} />
-          </div>
-          <div className="form-action">
-            <button type="submit" onClick={this.handleSubmit}>Login</button>
-          </div>
-        </form>
-      </div>
+      </section>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  User: state.User,
+  auth: state.Auth,
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: (name, password) => dispatch(Actions.User.loginRequest(name, password)),
+  login: (name, password) => dispatch(Actions.Auth.loginRequest(name, password)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
