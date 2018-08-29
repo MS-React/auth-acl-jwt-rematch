@@ -7,4 +7,5 @@ export default function* rootSaga() {
 
   yield takeEvery('AUTHENTICATION_REQUEST', sagas.loginRequest);
   yield takeEvery('GET_ALL_USERS_REQUEST', sagas.getUsers);
+  yield takeEvery('USERS_CREATE_USER_REQUEST', sagas.createUser);
 }

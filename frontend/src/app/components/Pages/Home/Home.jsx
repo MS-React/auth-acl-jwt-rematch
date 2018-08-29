@@ -12,6 +12,10 @@ import ActionButtons from '../ActionButtons/ActionButtons';
 class Home extends React.PureComponent {
   static propTypes = {
     getUsers: PropTypes.func.isRequired,
+    selectUser: PropTypes.func.isRequired,
+    create: PropTypes.func.isRequired,
+    update: PropTypes.func.isRequired,
+    delete: PropTypes.func.isRequired,
     users: PropTypes.array,
   }
 
@@ -21,22 +25,41 @@ class Home extends React.PureComponent {
 
   state = {
     selectedRow: [],
+    user: {},
   };
 
   componentDidMount() {
     this.props.getUsers();
   }
 
+  setSelectedRow = (user) => {
+    this.setState({
+      selectedRow: [user.id],
+    }, () => {
+      if (typeof this.props.selectUser === 'function') {
+        this.props.selectUser(user);
+      }
+    });
+  };
+
   handleUserActionType = (type = 'add', user) => {
+    let result;
+
     switch (type) {
       case 'add':
+        result = this.props.create(user);
+        break;
       case 'edit':
+        result = this.props.update(user);
+        break;
       case 'delete':
+        result = this.props.delete(user);
+        break;
       default:
         break;
     }
 
-    return user;
+    return result;
   };
 
   render() {
@@ -102,7 +125,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getUsers: () => dispatch(Actions.Users.getUsers({ page: 0, limit: 15 })),
-  create: user => dispatch(Actions.Users.create(user)),
+  selectUser: user => dispatch(Actions.Users.selectUser(user)),
+  create: user => dispatch(Actions.Users.createUser(user)),
   update: user => dispatch(Actions.Users.update(user)),
   delete: id => dispatch(Actions.Users.delete(id)),
 });

@@ -106,6 +106,7 @@ export class ActionButtons extends React.Component {
   };
 
   updateUserState = (event) => {
+    event.persist();
     this.setState(prevState => ({
       user: {
         ...prevState.user,

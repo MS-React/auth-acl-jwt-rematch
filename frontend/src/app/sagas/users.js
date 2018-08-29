@@ -12,9 +12,13 @@ export function* getUsers(action) {
   }
 }
 
-
-export function createUser(action) {
-  console.log('create', action);
+export function* createUser(action) {
+  try {
+    const response = yield call(apiService.create, { entity: 'users', data: action.user });
+    yield put({ type: 'CREATE_USER_SUCCESS', users: response.docs });
+  } catch (e) {
+    yield put({ type: 'CREATE_USER_FAIL', error: e.response });
+  }
 }
 
 export function readUser(action) {
