@@ -31,11 +31,10 @@ export class AuthController extends Controller {
     const user = await this.service.login(body);
 
     if (user instanceof UserFormatter) {
-      var payload = { id: user.id, rol: user.rol };
-      var jwtSignature = sign(payload, 'somesecret', { expiresIn: 3600 });
+      var payload = { user: { id: user.id, rol: user.rol } };
+      var jwtSignature = sign(payload, constants.JWT.secretKey, { expiresIn: 3600 });
       return {
-        jwtSignature,
-        payload
+        jwtSignature
       };
     }
     

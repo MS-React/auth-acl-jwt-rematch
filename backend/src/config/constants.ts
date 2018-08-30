@@ -32,6 +32,9 @@ export default {
     subscribeKey: env.PUBNUB_SUBSCRIBE_KEY,
     secretKey: env.PUBNUB_SECRET_KEY
   },
+  JWT: {
+    secretKey: env.JWT_SECRET_KEY
+  },
   errorTypes: {
     db: { statusCode: 500, name: 'Internal Server Error', message: 'database error' },
     validation: { statusCode: 400, name: 'Bad Request', message: 'validation error' },
