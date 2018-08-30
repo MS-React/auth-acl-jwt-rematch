@@ -6,6 +6,11 @@ const loginRequest = (name, password) => ({
   },
 });
 
+const signUpRequest = user => ({
+  type: 'AUTHENTICATION_SIGNUP_REQUEST',
+  user,
+});
+
 const logout = () => ({
   type: 'AUTHENTICATION_LOGOUT_REQUEST',
 });
@@ -21,4 +26,5 @@ export default {
   loginRequest,
   logout,
   getUserDataByToken,
+  signUpRequest,
 };

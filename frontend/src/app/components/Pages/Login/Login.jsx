@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import FormInput from '../../Common/Form/FormInput';
 import Actions from '../../../actions';
@@ -13,7 +13,6 @@ class Login extends React.PureComponent {
     login: PropTypes.func.isRequired,
     auth: PropTypes.shape({
       logged: PropTypes.bool,
-      error: PropTypes.object,
     }).isRequired,
   };
 
@@ -52,9 +51,6 @@ class Login extends React.PureComponent {
             <h1 className="h3 mb-3 font-weight-normal">
               Please sign in
             </h1>
-            <div className="message">
-              {this.props.auth.error && this.props.auth.error.data.message}
-            </div>
             <form id="login-form" onSubmit={this.handleSubmit}>
               <FormInput
                 inputId="username"
@@ -84,6 +80,9 @@ class Login extends React.PureComponent {
                 Sign in
               </button>
             </form>
+            <div className="authentication-actions">
+              <Link to="/signup">Sign Up</Link>
+            </div>
           </div>
         </div>
       </section>

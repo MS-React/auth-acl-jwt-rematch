@@ -54,6 +54,11 @@ class ApiService {
     return this.request({ method: 'POST', url: `/auth/login`, data });
   }
 
+  signUp = async (options) => {
+    const { data } = options;
+    return this.request({ method: 'POST', url: `/auth/signup`, data });
+  };
+
   getUsers = async (options) => {
     const { params } = options;
     return this.request({ method: 'GET', url: `/users`, params });

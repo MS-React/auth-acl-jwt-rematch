@@ -13,6 +13,10 @@ const Auth = (state = initialState, action) => {
       return { ...state, logged: true };
     case 'AUTHENTICATION_LOGOUT_SUCCESS':
       return { ...state, logged: false };
+    case 'AUTHENTICATION_SIGNUP_USER_SUCCESS':
+      return { ...state, signup: true };
+    case 'AUTHENTICATION_SIGNUP_USER_FAIL':
+      return { ...state, signup: false, error: action.error };
     default:
       return state;
   }

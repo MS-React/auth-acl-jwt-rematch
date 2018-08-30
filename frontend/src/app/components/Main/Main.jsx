@@ -7,6 +7,7 @@ import {
 import ReduxToastr from 'react-redux-toastr';
 import SecurityInterceptor from '../../containers/SecurityInterceptor';
 import LoginPage from '../Pages/Login';
+import SignUpPage from '../Pages/SignUp';
 import NotFoundPage from '../Pages/NotFound';
 import HomePage from '../Pages/Home';
 
@@ -17,6 +18,7 @@ const Main = () => (
         <SecurityInterceptor exact path="/" UnauthenticatedComponent={LoginPage}>
           <HomePage />
         </SecurityInterceptor>
+        <Route path="/signup" component={SignUpPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>

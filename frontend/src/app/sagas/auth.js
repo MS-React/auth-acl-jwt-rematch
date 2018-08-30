@@ -38,3 +38,14 @@ export function* logoutRequest() {
     yield put({ type: 'AUTHENTICATION_LOGOUT_FAIL', error: e.response });
   }
 }
+
+export function* signUpRequest(action) {
+  try {
+    yield call(apiService.signUp, { data: action.user });
+    yield put({ type: 'AUTHENTICATION_SIGNUP_USER_SUCCESS' });
+    toastr.success('Sign Up', 'Successfully. Now you can login.');
+  } catch (e) {
+    yield put({ type: 'AUTHENTICATION_SIGNUP_USER_FAIL', error: e.response });
+    toastr.error('Sign Up', e.response.data.message);
+  }
+}

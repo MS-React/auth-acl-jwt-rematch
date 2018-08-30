@@ -8,7 +8,7 @@ import {
 
 import { ProvideSingleton, inject } from '../ioc';
 import { UserService } from '../services';
-import { UserFormatter } from '../models';
+import { IUserModel, UserFormatter } from '../models';
 import { ApiError } from '../config/ErrorHandler';
 import constants from '../config/constants';
 import { sign } from 'jsonwebtoken';
@@ -39,5 +39,10 @@ export class AuthController extends Controller {
     }
     
     throw new ApiError(constants.errorTypes.auth);
+  }
+
+  @Post('signup')
+  public async create(@Body() body: IUserModel): Promise<IUserModel> {
+    return this.service.create(body);
   }
 }
