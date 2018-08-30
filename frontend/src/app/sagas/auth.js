@@ -1,5 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import { put, call } from 'redux-saga/effects';
+import { toastr } from 'react-redux-toastr';
 import { apiService } from '../api/ApiService';
 
 export function* loginRequest(action) {
@@ -13,6 +14,7 @@ export function* loginRequest(action) {
   } catch (e) {
     localStorage.removeItem('jwt-token-id');
     yield put({ type: 'AUTHENTICATION_FAIL', error: e.response });
+    toastr.error(e.response.data.name, e.response.data.message);
   }
 }
 

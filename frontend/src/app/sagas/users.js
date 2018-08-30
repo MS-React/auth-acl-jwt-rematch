@@ -1,4 +1,5 @@
 import { put, call } from 'redux-saga/effects';
+import { toastr } from 'react-redux-toastr';
 import { apiService } from '../api/ApiService';
 
 export function* getUsers(action) {
@@ -16,6 +17,7 @@ export function* createUser(action) {
   try {
     const response = yield call(apiService.create, { entity: 'users', data: action.user });
     yield put({ type: 'CREATE_USER_SUCCESS', user: response });
+    toastr.success('User Created', 'Successfully');
   } catch (e) {
     yield put({ type: 'CREATE_USER_FAIL', error: e.response });
   }

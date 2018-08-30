@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+import ReduxToastr from 'react-redux-toastr';
 import SecurityInterceptor from '../../containers/SecurityInterceptor';
 import LoginPage from '../Pages/Login';
 import NotFoundPage from '../Pages/NotFound';
@@ -19,6 +20,16 @@ const Main = () => (
         <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>
+    <ReduxToastr
+      timeOut={4000}
+      newestOnTop={false}
+      preventDuplicates
+      position="top-right"
+      transitionIn="fadeIn"
+      transitionOut="fadeOut"
+      progressBar
+      closeOnToastrClick
+    />
   </main>
 );
 
