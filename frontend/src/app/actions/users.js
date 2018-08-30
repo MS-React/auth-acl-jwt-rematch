@@ -13,6 +13,11 @@ const createUser = user => ({
   user,
 });
 
+const updateUser = user => ({
+  type: 'USERS_UPDATE_USER_REQUEST',
+  user,
+});
+
 const deleteUser = user => ({
   type: 'USERS_DELETE_USER_REQUEST',
   user,
@@ -22,5 +27,6 @@ export default {
   getUsers,
   selectUser,
   createUser,
+  updateUser,
   deleteUser,
 };

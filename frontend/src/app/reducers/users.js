@@ -12,6 +12,14 @@ const Users = (state = initialState, action) => {
       return { ...state, selectedUser: action.selectedUser };
     case 'CREATE_USER_SUCCESS':
       return { ...state, users: [...state.users, action.user] };
+    case 'UPDATE_USER_SUCCESS':
+      return {
+        ...state,
+        users: [
+          action.user,
+          ...state.users.filter(user => user.id !== action.user.id),
+        ],
+      };
     case 'DELETE_USER_SUCCESS':
       return { ...state, users: state.users.filter(user => user.id !== action.id) };
     default:

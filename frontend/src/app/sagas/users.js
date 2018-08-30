@@ -23,8 +23,14 @@ export function* createUser(action) {
   }
 }
 
-export function updateUser(action) {
-  console.log('create', action);
+export function* updateUser(action) {
+  try {
+    yield call(apiService.update, { entity: 'users', _id: action.user.id, data: action.user });
+    yield put({ type: 'UPDATE_USER_SUCCESS', user: action.user });
+    toastr.success('User Updated', 'Successfully');
+  } catch (e) {
+    yield put({ type: 'UPDATE_USER_FAIL', error: e.response });
+  }
 }
 
 export function* deleteUser(action) {

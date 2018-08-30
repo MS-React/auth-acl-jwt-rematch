@@ -20,5 +20,6 @@ export default function* rootSaga() {
 
   yield takeEvery('USERS_GET_ALL_USERS_REQUEST', sagaErrorHandler(sagas.getUsers));
   yield takeEvery('USERS_CREATE_USER_REQUEST', sagaErrorHandler(sagas.createUser));
+  yield takeEvery('USERS_UPDATE_USER_REQUEST', sagaErrorHandler(sagas.updateUser));
   yield takeEvery('USERS_DELETE_USER_REQUEST', sagaErrorHandler(sagas.deleteUser));
 }
