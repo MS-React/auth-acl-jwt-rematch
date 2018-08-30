@@ -6,8 +6,8 @@ const loginRequest = (name, password) => ({
   },
 });
 
-const logout = ({
-  type: 'AUTHENTICATION_LOGOUT',
+const logout = () => ({
+  type: 'AUTHENTICATION_LOGOUT_REQUEST',
 });
 
 const getUserDataByToken = token => ({

@@ -29,3 +29,12 @@ export function* getUserDataByToken(action) {
     yield put({ type: 'AUTHENTICATION_FAIL', error: e.response });
   }
 }
+
+export function* logoutRequest() {
+  try {
+    localStorage.removeItem('jwt-token-id');
+    yield put({ type: 'AUTHENTICATION_LOGOUT_SUCCESS' });
+  } catch (e) {
+    yield put({ type: 'AUTHENTICATION_LOGOUT_FAIL', error: e.response });
+  }
+}

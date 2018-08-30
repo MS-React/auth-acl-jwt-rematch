@@ -17,6 +17,7 @@ export default function* rootSaga() {
 
   yield takeEvery('AUTHENTICATION_REQUEST', sagaErrorHandler(sagas.loginRequest));
   yield takeLatest('AUTHENTICATION_GET_DATA_BY_TOKEN', sagaErrorHandler(sagas.getUserDataByToken));
+  yield takeLatest('AUTHENTICATION_LOGOUT_REQUEST', sagaErrorHandler(sagas.logoutRequest));
 
   yield takeEvery('USERS_GET_ALL_USERS_REQUEST', sagaErrorHandler(sagas.getUsers));
   yield takeEvery('USERS_CREATE_USER_REQUEST', sagaErrorHandler(sagas.createUser));
