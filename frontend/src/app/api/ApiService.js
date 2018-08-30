@@ -41,13 +41,11 @@ class ApiService {
 
   update = async (options = {}) => {
     const { entity, _id, data } = options;
-    if (!this.isEntityValid(entity)) throw new Error(`invalid entity "${entity}"`);
     return this.request({ method: 'PUT', url: `/${entity}/${_id}`, data });
   };
 
   deleteOne = async (options = {}) => {
     const { entity, _id } = options;
-    if (!this.isEntityValid(entity)) throw new Error(`invalid entity "${entity}"`);
     return this.request({ method: 'DELETE', url: `/${entity}/${_id}` });
   };
 

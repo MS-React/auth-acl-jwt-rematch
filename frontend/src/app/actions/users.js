@@ -1,5 +1,5 @@
 const getUsers = params => ({
-  type: 'GET_ALL_USERS_REQUEST',
+  type: 'USERS_GET_ALL_USERS_REQUEST',
   params,
 });
 
@@ -13,8 +13,14 @@ const createUser = user => ({
   user,
 });
 
+const deleteUser = user => ({
+  type: 'USERS_DELETE_USER_REQUEST',
+  user,
+});
+
 export default {
   getUsers,
   selectUser,
   createUser,
+  deleteUser,
 };

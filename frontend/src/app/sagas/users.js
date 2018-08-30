@@ -23,14 +23,16 @@ export function* createUser(action) {
   }
 }
 
-export function readUser(action) {
-  console.log('create', action);
-}
-
 export function updateUser(action) {
   console.log('create', action);
 }
 
-export function deleteUser(action) {
-  console.log('create', action);
+export function* deleteUser(action) {
+  try {
+    yield call(apiService.deleteOne, { entity: 'users', _id: action.user.id });
+    yield put({ type: 'DELETE_USER_SUCCESS', id: action.user.id });
+    toastr.success('User Deleted', 'Successfully');
+  } catch (e) {
+    yield put({ type: 'DELETE_USER_FAIL', error: e.response });
+  }
 }

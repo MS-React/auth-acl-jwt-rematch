@@ -16,8 +16,9 @@ export default function* rootSaga() {
   const sagas = { ...authSagas, ...usersSagas };
 
   yield takeEvery('AUTHENTICATION_REQUEST', sagaErrorHandler(sagas.loginRequest));
-  yield takeEvery('GET_ALL_USERS_REQUEST', sagaErrorHandler(sagas.getUsers));
-  yield takeEvery('USERS_CREATE_USER_REQUEST', sagaErrorHandler(sagas.createUser));
-
   yield takeLatest('AUTHENTICATION_GET_DATA_BY_TOKEN', sagaErrorHandler(sagas.getUserDataByToken));
+
+  yield takeEvery('USERS_GET_ALL_USERS_REQUEST', sagaErrorHandler(sagas.getUsers));
+  yield takeEvery('USERS_CREATE_USER_REQUEST', sagaErrorHandler(sagas.createUser));
+  yield takeEvery('USERS_DELETE_USER_REQUEST', sagaErrorHandler(sagas.deleteUser));
 }

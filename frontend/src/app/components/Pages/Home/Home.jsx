@@ -127,8 +127,8 @@ const mapDispatchToProps = dispatch => ({
   getUsers: () => dispatch(Actions.Users.getUsers({ page: 0, limit: 15 })),
   selectUser: user => dispatch(Actions.Users.selectUser(user)),
   create: user => dispatch(Actions.Users.createUser(user)),
-  update: user => dispatch(Actions.Users.update(user)),
-  delete: id => dispatch(Actions.Users.delete(id)),
+  update: user => dispatch(Actions.Users.updateUser(user)),
+  delete: user => dispatch(Actions.Users.deleteUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
