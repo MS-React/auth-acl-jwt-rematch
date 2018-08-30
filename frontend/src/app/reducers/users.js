@@ -10,6 +10,8 @@ const Users = (state = initialState, action) => {
       return { ...state, users: action.users };
     case 'USERS_SELECT_USER':
       return { ...state, selectedUser: action.selectedUser };
+    case 'CREATE_USER_SUCCESS':
+      return { ...state, users: [...state.users, action.user] };
     default:
       return state;
   }
