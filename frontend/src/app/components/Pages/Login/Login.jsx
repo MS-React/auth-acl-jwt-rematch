@@ -80,9 +80,10 @@ class Login extends React.PureComponent {
                 Sign in
               </button>
             </form>
-            <div className="authentication-actions">
-              <Link to="/signup">Sign Up</Link>
-            </div>
+          </div>
+          <div className="authentication-actions">
+            <Link to="/signup">Sign Up</Link>
+            <Link to="/forgotpassword">Forgot Password</Link>
           </div>
         </div>
       </section>
