@@ -6,7 +6,6 @@ import {
 
 class FormSelect extends React.PureComponent {
   static propTypes = {
-    type: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
     value: PropTypes.oneOfType([
@@ -34,7 +33,7 @@ class FormSelect extends React.PureComponent {
 
   render() {
     const {
-      type, name, placeholder, value, onChange, label, inputId, invalid, required, feedback,
+      name, placeholder, value, onChange, label, inputId, invalid, required, feedback,
       children,
     } = this.props;
     const asteristk = required ? '*' : '';
