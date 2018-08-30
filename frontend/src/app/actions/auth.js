@@ -10,7 +10,15 @@ const logout = ({
   type: 'AUTHENTICATION_LOGOUT',
 });
 
+const getUserDataByToken = token => ({
+  type: 'AUTHENTICATION_GET_DATA_BY_TOKEN',
+  payload: {
+    token,
+  },
+});
+
 export default {
   loginRequest,
   logout,
+  getUserDataByToken,
 };

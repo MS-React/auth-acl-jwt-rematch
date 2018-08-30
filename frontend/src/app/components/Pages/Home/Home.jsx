@@ -43,23 +43,23 @@ class Home extends React.PureComponent {
   };
 
   handleUserActionType = (type = 'add', user) => {
-    let result;
+    let action = () => {};
 
     switch (type) {
       case 'add':
-        result = this.props.create(user);
+        action = this.props.create;
         break;
       case 'edit':
-        result = this.props.update(user);
+        action = this.props.update;
         break;
       case 'delete':
-        result = this.props.delete(user);
+        action = this.props.delete;
         break;
       default:
         break;
     }
 
-    return result;
+    return action(user);
   };
 
   render() {

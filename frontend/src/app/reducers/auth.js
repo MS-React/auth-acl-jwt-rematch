@@ -8,6 +8,8 @@ const Auth = (state = initialState, action) => {
       return { ...state, logged: true, ...action.auth };
     case 'AUTHENTICATION_FAIL':
       return { ...state, logged: false, error: action.error };
+    case 'AUTHENTICATION_LOGIN_OK':
+      return { ...state, logged: true };
     default:
       return state;
   }

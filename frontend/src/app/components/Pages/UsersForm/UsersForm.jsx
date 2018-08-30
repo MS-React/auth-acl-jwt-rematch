@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Row } from 'reactstrap';
 import FormInput from '../../Common/Form/FormInput';
-
+import FormSelect from '../../Common/Form/FormSelect';
 
 class UsersForm extends React.PureComponent {
   static propTypes = {
@@ -11,6 +11,7 @@ class UsersForm extends React.PureComponent {
     errors: PropTypes.shape({
       name: PropTypes.string,
       email: PropTypes.string,
+      password: PropTypes.string,
     }),
   };
 
@@ -18,6 +19,7 @@ class UsersForm extends React.PureComponent {
     errors: {
       name: '',
       email: '',
+      password: '',
     },
   };
 
@@ -25,6 +27,7 @@ class UsersForm extends React.PureComponent {
     const { user, onChange, errors } = this.props;
     const isNameInvalid = (errors.name && errors.name !== '');
     const isEmailInvalid = (errors.email && errors.email !== '');
+    const isPasswordInvalid = (errors.password && errors.password !== '');
     const emailFeedback = errors.email || '';
     return (
       <div>
@@ -44,6 +47,32 @@ class UsersForm extends React.PureComponent {
                   invalid={isNameInvalid}
                   feedback={errors.name}
                 />
+                <FormInput
+                  inputId="password"
+                  label="Password"
+                  type="text"
+                  onChange={onChange}
+                  value={user.password}
+                  name="password"
+                  placeholder="Password"
+                  required
+                  invalid={isPasswordInvalid}
+                  feedback={errors.password}
+                />
+                <FormSelect
+                  inputId="rol"
+                  label="Rol"
+                  type="select"
+                  onChange={onChange}
+                  value={user.rol}
+                  name="rol"
+                  placeholder="rol"
+                  required
+                  feedback={errors.rol}
+                >
+                  <option value="member">Member</option>
+                  <option value="admin">Admin</option>
+                </FormSelect>
                 <FormInput
                   inputId="email"
                   label="Email"

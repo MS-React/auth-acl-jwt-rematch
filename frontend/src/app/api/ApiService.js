@@ -4,6 +4,20 @@ import settings from '../../config/settings';
 class ApiService {
   http = axios;
 
+  headers = () => {
+    const headers = {
+      common: {
+        Authorization: `Bearer ${localStorage.getItem('jwt-token-id')}`,
+        Accept: 'application/json',
+      },
+      put: {
+        'Content-Type': 'application/json',
+      },
+    };
+    Object.keys(headers.common).forEach(key => !headers.common[key] && delete headers.common[key]);
+    return headers;
+  }
+
   request = async (options = { method: null, url: null, params: {}, data: {} }) => { // eslint-disable-line
     const { method, url, params, data } = options; // eslint-disable-line
 
@@ -16,9 +30,7 @@ class ApiService {
       url,
       params,
       data,
-      headers: {
-        Accept: 'application/json',
-      },
+      headers: this.headers(),
     }).then(response => response.data);
   };
 

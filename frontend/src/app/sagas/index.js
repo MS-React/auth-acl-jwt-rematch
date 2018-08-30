@@ -1,11 +1,23 @@
-import { takeEvery } from 'redux-saga/effects';
+import { takeEvery, takeLatest } from 'redux-saga/effects';
 import * as authSagas from './auth';
 import * as usersSagas from './users';
 
 export default function* rootSaga() {
+  const sagaErrorHandler = generator => (
+    function* safeGenerator(...args) {
+      try {
+        yield generator(...args);
+      } catch (e) {
+        console.log('error', e.response);
+        // yield put(Actions.Notification.errorMessage(''));
+      }
+    }
+  );
   const sagas = { ...authSagas, ...usersSagas };
 
-  yield takeEvery('AUTHENTICATION_REQUEST', sagas.loginRequest);
-  yield takeEvery('GET_ALL_USERS_REQUEST', sagas.getUsers);
-  yield takeEvery('USERS_CREATE_USER_REQUEST', sagas.createUser);
+  yield takeEvery('AUTHENTICATION_REQUEST', sagaErrorHandler(sagas.loginRequest));
+  yield takeEvery('GET_ALL_USERS_REQUEST', sagaErrorHandler(sagas.getUsers));
+  yield takeEvery('USERS_CREATE_USER_REQUEST', sagaErrorHandler(sagas.createUser));
+
+  yield takeLatest('AUTHENTICATION_GET_DATA_BY_TOKEN', sagaErrorHandler(sagas.getUserDataByToken));
 }

@@ -11,6 +11,8 @@ import './ActionButtons.scss';
 const EMPTY_USER = {
   name: '',
   email: '',
+  password: '',
+  rol: '',
   phone: '',
   skypeId: '',
 };
@@ -129,6 +131,7 @@ export class ActionButtons extends React.Component {
     const { user } = this.state;
     const isValidUsername = user.name !== '';
     const isValidEmail = EMAIL_REGEXP.test(user.email);
+    const isValidPassword = user.password !== '';
     const errors = {};
 
     if (!isValidUsername) {
@@ -137,6 +140,10 @@ export class ActionButtons extends React.Component {
 
     if (!isValidEmail) {
       errors.email = 'Email is invalid';
+    }
+
+    if (!isValidPassword) {
+      errors.password = 'Password is invalid';
     }
 
     this.setState({ errors });
@@ -155,10 +162,8 @@ export class ActionButtons extends React.Component {
     }
 
     if (typeof this.props.onConfirm === 'function') {
-      this.props.onConfirm(this.state.actionType, this.state.user)
-        .then(() => {
-          this.toggle();
-        });
+      this.props.onConfirm(this.state.actionType, this.state.user);
+      this.toggle();
     }
   };
 

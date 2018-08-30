@@ -17,6 +17,7 @@ export function* createUser(action) {
     const response = yield call(apiService.create, { entity: 'users', data: action.user });
     yield put({ type: 'CREATE_USER_SUCCESS', users: response.docs });
   } catch (e) {
+    console.log(e.response);
     yield put({ type: 'CREATE_USER_FAIL', error: e.response });
   }
 }
