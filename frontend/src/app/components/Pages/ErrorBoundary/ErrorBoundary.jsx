@@ -3,16 +3,14 @@ import PropTypes from 'prop-types';
 
 export default class ErrorBoundary extends React.PureComponent {
   static propTypes = {
-    children: PropTypes.array.isRequired,
+    children: PropTypes.any.isRequired,
   };
 
-  state = { hasError: false, error: null, info: null };
+  state = { hasError: false };
 
-  componentDidCatch(error, info) {
+  componentDidCatch(error, info) { // eslint-disable-line
     this.setState({
       hasError: true,
-      error,
-      info,
     });
   }
 
@@ -21,8 +19,6 @@ export default class ErrorBoundary extends React.PureComponent {
       return (
         <div className="error-container">
           <h1>Something went wrong!!!</h1>
-          <p>Error: {this.state.error}</p>
-          <p>Info: {this.state.info}</p>
         </div>
       );
     }
