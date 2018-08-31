@@ -51,7 +51,6 @@ export function* signUpRequest(action) {
 }
 
 export function* forgotpasswordRequest(action) {
-  console.log('action?', action);
   try {
     const response = yield call(apiService.forgotpassword, { data: { email: action.email } });
     yield put({ type: 'AUTHENTICATION_FORGOTPASSWORD_SUCCESS', response });

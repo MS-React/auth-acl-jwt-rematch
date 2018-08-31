@@ -9,6 +9,8 @@ import Actions from '../../../actions';
 import Header from '../Partials/Header';
 import ActionButtons from '../ActionButtons/ActionButtons';
 
+import './Home.scss';
+
 class Home extends React.PureComponent {
   static propTypes = {
     getUsers: PropTypes.func.isRequired,

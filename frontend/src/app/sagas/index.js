@@ -1,15 +1,20 @@
 import { takeEvery, takeLatest } from 'redux-saga/effects';
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import * as authSagas from './auth';
 import * as usersSagas from './users';
+import { dispatch } from '../store';
 
 export default function* rootSaga() {
   const sagaErrorHandler = generator => (
     function* safeGenerator(...args) {
       try {
+        dispatch(showLoading());
         yield generator(...args);
       } catch (e) {
         console.log('error', e.response);
         // yield put(Actions.Notification.errorMessage(''));
+      } finally {
+        dispatch(hideLoading());
       }
     }
   );

@@ -62,7 +62,7 @@ class ForgotPassword extends React.PureComponent {
       return;
     }
 
-    this.props.forgotpassword(this.state.user.email);
+    this.props.forgotpassword(this.state.user);
   }
 
   render() {
@@ -78,13 +78,13 @@ class ForgotPassword extends React.PureComponent {
     return (
       <section className="forgotpassword-page">
         <div className="forgotpassword--form">
+          <h1 className="h3 mb-3 font-weight-normal">
+            Forgot password?
+          </h1>
+          <h3>
+            Write down your email account and we will send you an email with a new password.
+          </h3>
           <div className="forgotpassword-form">
-            <h1 className="h3 mb-3 font-weight-normal">
-              Forgot password?
-            </h1>
-            <h3>
-              Write down your email account and we will send you an email with a new password.
-            </h3>
             <ForgotPasswordForm
               onChange={this.updateUserState}
               user={user}

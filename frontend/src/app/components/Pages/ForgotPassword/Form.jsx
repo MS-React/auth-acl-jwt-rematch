@@ -36,7 +36,6 @@ class ForgotPasswordForm extends React.PureComponent {
                   name="email"
                   placeholder="Email"
                   required
-                  invalid={isEmailInvalid}
                   feedback={errors.email}
                 />
               </form>
