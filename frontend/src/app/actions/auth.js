@@ -22,9 +22,15 @@ const getUserDataByToken = token => ({
   },
 });
 
+const forgotpasswordRequest = email => ({
+  type: 'AUTHENTICATION_FORGOTPASSWORD_REQUEST',
+  email,
+});
+
 export default {
   loginRequest,
   logout,
   getUserDataByToken,
   signUpRequest,
+  forgotpasswordRequest,
 };

@@ -35,6 +35,9 @@ export default {
   JWT: {
     secretKey: env.JWT_SECRET_KEY
   },
+  MAILCHIMP: {
+    apiKey: ''
+  },
   errorTypes: {
     db: { statusCode: 500, name: 'Internal Server Error', message: 'database error' },
     validation: { statusCode: 400, name: 'Bad Request', message: 'validation error' },

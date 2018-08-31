@@ -5,18 +5,14 @@ import {
   Body,
   Tags
 } from 'tsoa';
+import { sign } from 'jsonwebtoken';
 
 import { ProvideSingleton, inject } from '../ioc';
 import { UserService } from '../services';
-import { IUserModel, UserFormatter } from '../models';
+import { IUserModel, UserFormatter, ILogin, IForgotPassword, ISendMail } from '../models';
 import { ApiError } from '../config/ErrorHandler';
+import { sendMail } from '../utils/generalUtils';
 import constants from '../config/constants';
-import { sign } from 'jsonwebtoken';
-
-interface ILogin {
-  name: string;
-  password: string;
-}
 
 @Tags('auth')
 @Route('auth')
@@ -44,5 +40,22 @@ export class AuthController extends Controller {
   @Post('signup')
   public async create(@Body() body: IUserModel): Promise<IUserModel> {
     return this.service.create(body);
+  }
+  
+  @Post('recover')
+  public async recoverPassword(@Body() body: IForgotPassword): Promise<any> {
+    const user = await this.service.getByEmail(body.email);
+
+    const mail: ISendMail = {
+      to: body.email,
+      subject: 'prueba',
+      body: 'some text'
+    };
+
+    try {
+      const response = await sendMail(mail);
+    } catch (e) {
+      console.log('error', e);
+    }
   }
 }

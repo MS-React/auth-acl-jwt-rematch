@@ -49,3 +49,13 @@ export function* signUpRequest(action) {
     toastr.error('Sign Up', e.response.data.message);
   }
 }
+
+export function* forgotpasswordRequest(action) {
+  console.log('action?', action);
+  try {
+    const response = yield call(apiService.forgotpassword, { data: { email: action.email } });
+    yield put({ type: 'AUTHENTICATION_FORGOTPASSWORD_SUCCESS', response });
+  } catch (e) {
+    yield put({ type: 'AUTHENTICATION_FORGOTPASSWORD_FAIL', error: e.response });
+  }
+}

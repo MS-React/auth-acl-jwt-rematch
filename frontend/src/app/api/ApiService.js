@@ -51,17 +51,22 @@ class ApiService {
 
   login = async (options) => {
     const { data } = options;
-    return this.request({ method: 'POST', url: `/auth/login`, data });
+    return this.request({ method: 'POST', url: '/auth/login', data });
   }
 
   signUp = async (options) => {
     const { data } = options;
-    return this.request({ method: 'POST', url: `/auth/signup`, data });
+    return this.request({ method: 'POST', url: '/auth/signup', data });
   };
+
+  forgotpassword = async (options) => {
+    const { data } = options;
+    return this.request({ method: 'POST', url: '/auth/recover', data });
+  }
 
   getUsers = async (options) => {
     const { params } = options;
-    return this.request({ method: 'GET', url: `/users`, params });
+    return this.request({ method: 'GET', url: '/users', params });
   }
 }
 

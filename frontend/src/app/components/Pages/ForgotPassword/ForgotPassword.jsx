@@ -10,8 +10,8 @@ import './ForgotPassword.scss';
 
 class ForgotPassword extends React.PureComponent {
   static propTypes = {
-    forgotpasswordRequest: PropTypes.func.isRequired,
-    forgotpasswordResponse: PropTypes.bool,
+    forgotpassword: PropTypes.func.isRequired,
+    forgotpasswordResponse: PropTypes.any,
   };
 
   static defaultProps = {
@@ -62,12 +62,14 @@ class ForgotPassword extends React.PureComponent {
       return;
     }
 
-    this.props.forgotpasswordRequest(this.state.user);
+    this.props.forgotpassword(this.state.user.email);
   }
 
   render() {
     const { user, errors } = this.state;
     const { forgotpasswordResponse } = this.props;
+
+    console.log('forgot response?', forgotpasswordResponse);
 
     if (forgotpasswordResponse) {
       return <Redirect to={{ pathname: '/' }} />;
@@ -103,7 +105,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  forgotpasswordRequest: email => dispatch(Actions.Auth.forgotpassword(email)),
+  forgotpassword: email => dispatch(Actions.Auth.forgotpasswordRequest(email)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);

@@ -1,6 +1,8 @@
 import { Request } from 'express';
+import Mailchimp from 'mailchimp-api-v3'; 
 import * as multer from 'multer';
 import constants from '../config/constants';
+import { ISendMail } from '../models';
 
 const parseDatabaseArguments = (args: Array<string>): typeof constants['SQL'] => {
   const localDbConfig = constants.SQL;
@@ -67,4 +69,8 @@ export const getDatabaseConfig = (): typeof constants['SQL'] => {
   }
 
   return config;
+};
+
+export const sendMail = async (mail: ISendMail): Promise<any> => {
+  const mailchimp = new Mailchimp(constants.MAILCHIMP.apiKey);
 };
