@@ -35,8 +35,9 @@ export default {
   JWT: {
     secretKey: env.JWT_SECRET_KEY
   },
-  MAILCHIMP: {
-    apiKey: env.MAILCHIMP_API_KEY
+  MAIL_SERVICE: {
+    user: env.GMAIL_USER,
+    password: env.GMAIL_PASSWORD
   },
   errorTypes: {
     db: { statusCode: 500, name: 'Internal Server Error', message: 'database error' },

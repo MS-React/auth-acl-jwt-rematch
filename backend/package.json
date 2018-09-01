@@ -42,6 +42,7 @@
     "cross-env": "^5.1.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
+    "gmail-send": "^1.2.14",
     "inversify": "^4.11.1",
     "inversify-binding-decorators": "^3.2.0",
     "jsonwebtoken": "^8.3.0",

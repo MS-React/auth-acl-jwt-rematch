@@ -1,5 +1,4 @@
 import { Request } from 'express';
-import Mailchimp from 'mailchimp-api-v3'; 
 import * as multer from 'multer';
 import constants from '../config/constants';
 import { ISendMail } from '../models';
@@ -71,6 +70,16 @@ export const getDatabaseConfig = (): typeof constants['SQL'] => {
   return config;
 };
 
-export const sendMail = async (mail: ISendMail): Promise<any> => {
-  const mailchimp = new Mailchimp(constants.MAILCHIMP.apiKey);
+export const sendMail = (mail: ISendMail) => {
+  const send = require('gmail-send')({
+    user: constants.MAIL_SERVICE.user,
+    pass: constants.MAIL_SERVICE.password,
+    from: 'info@makingsense-recoverypass.com',
+    to:   mail.to,
+    subject: mail.subject,
+    html:    mail.body,
+    // text:    mail.body,
+  });
+
+  return send;
 };

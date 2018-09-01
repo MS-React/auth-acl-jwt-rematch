@@ -43,19 +43,25 @@ export class AuthController extends Controller {
   }
   
   @Post('recover')
-  public async recoverPassword(@Body() body: IForgotPassword): Promise<any> {
+  public async recoverPassword(@Body() body: IForgotPassword): Promise<void> {
     const user = await this.service.getByEmail(body.email);
 
     const mail: ISendMail = {
       to: body.email,
-      subject: 'prueba',
-      body: 'some text'
+      subject: 'Recovery Password',
+      body: `Here's your password!: <b>${user.password}</b>`,
     };
 
+    const sender = sendMail(mail);
+
     try {
-      const response = await sendMail(mail);
+      return sender({});
     } catch (e) {
-      console.log('error', e);
+      throw new ApiError({
+        statusCode: 500,
+        name: 'Mail Service Error',
+        message: 'Unable to send email',
+      });
     }
   }
 }
