@@ -53,8 +53,9 @@ export function* signUpRequest(action) {
 export function* forgotpasswordRequest(action) {
   try {
     const response = yield call(apiService.forgotpassword, { data: { email: action.email } });
-    yield put({ type: 'AUTHENTICATION_FORGOTPASSWORD_SUCCESS', response });
+    yield put({ type: 'AUTHENTICATION_FORGOTPASSWORD_SUCCESS', response: { send: true } });
   } catch (e) {
-    yield put({ type: 'AUTHENTICATION_FORGOTPASSWORD_FAIL', error: e.response });
+    yield put({ type: 'AUTHENTICATION_FORGOTPASSWORD_FAIL', response: { send: false } });
+    toastr.error('Error', 'Unable to send Mail, try again later.');
   }
 }

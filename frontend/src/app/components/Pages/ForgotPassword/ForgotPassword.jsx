@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Actions from '../../../actions';
 import ForgotPasswordForm from './Form';
 import { EMAIL_REGEXP } from '../../../constants/validations';
@@ -11,11 +11,15 @@ import './ForgotPassword.scss';
 class ForgotPassword extends React.PureComponent {
   static propTypes = {
     forgotpassword: PropTypes.func.isRequired,
-    forgotpasswordResponse: PropTypes.any,
+    forgotpasswordResponse: PropTypes.shape({
+      send: PropTypes.bool,
+    }),
   };
 
   static defaultProps = {
-    forgotpasswordResponse: false,
+    forgotpasswordResponse: {
+      send: false,
+    },
   }
 
   constructor(props) {
@@ -62,17 +66,28 @@ class ForgotPassword extends React.PureComponent {
       return;
     }
 
-    this.props.forgotpassword(this.state.user);
+    this.props.forgotpassword(this.state.user.email);
   }
 
   render() {
     const { user, errors } = this.state;
     const { forgotpasswordResponse } = this.props;
 
-    console.log('forgot response?', forgotpasswordResponse);
-
-    if (forgotpasswordResponse) {
-      return <Redirect to={{ pathname: '/' }} />;
+    if (forgotpasswordResponse.send) {
+      return (
+        <section className="forgotpassword-page">
+          <div className="forgotpassword--form">
+            <h1 className="h3 mb-3 font-weight-normal">
+              Check your mailbox!
+            </h1>
+            <h3>
+              An email has sent to your email box, please check it.
+              Do not forget to look in your darfts.
+            </h3>
+            <p><Link to="/">Go back Home</Link></p>
+          </div>
+        </section>
+      );
     }
 
     return (
