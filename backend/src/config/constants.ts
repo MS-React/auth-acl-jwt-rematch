@@ -36,7 +36,7 @@ export default {
     secretKey: env.JWT_SECRET_KEY
   },
   MAILCHIMP: {
-    apiKey: ''
+    apiKey: env.MAILCHIMP_API_KEY
   },
   errorTypes: {
     db: { statusCode: 500, name: 'Internal Server Error', message: 'database error' },
