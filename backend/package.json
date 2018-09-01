@@ -46,7 +46,6 @@
     "inversify": "^4.11.1",
     "inversify-binding-decorators": "^3.2.0",
     "jsonwebtoken": "^8.3.0",
-    "mailchimp-api-v3": "^1.12.0",
     "mongoose": "^5.0.12",
     "mongoose-unique-validator": "^2.0.0",
     "morgan": "^1.9.0",
