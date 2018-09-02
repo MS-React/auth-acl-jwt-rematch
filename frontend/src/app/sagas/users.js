@@ -10,6 +10,7 @@ export function* getUsers(action) {
     yield put({ type: 'GET_ALL_USERS_SUCCESS', users: response.docs });
   } catch (e) {
     yield put({ type: 'GET_ALL_USERS_FAIL', error: e.response });
+    throw e;
   }
 }
 
@@ -20,6 +21,7 @@ export function* createUser(action) {
     toastr.success('User Created', 'Successfully');
   } catch (e) {
     yield put({ type: 'CREATE_USER_FAIL', error: e.response });
+    throw e;
   }
 }
 
@@ -30,6 +32,7 @@ export function* updateUser(action) {
     toastr.success('User Updated', 'Successfully');
   } catch (e) {
     yield put({ type: 'UPDATE_USER_FAIL', error: e.response });
+    throw e;
   }
 }
 
@@ -40,5 +43,6 @@ export function* deleteUser(action) {
     toastr.success('User Deleted', 'Successfully');
   } catch (e) {
     yield put({ type: 'DELETE_USER_FAIL', error: e.response });
+    throw e;
   }
 }

@@ -7,7 +7,7 @@ class ApiService {
   headers = () => {
     const headers = {
       common: {
-        Authorization: `Bearer ${localStorage.getItem('jwt-token-id')}`,
+        'x-access-token': localStorage.getItem('jwt-token-id'),
         Accept: 'application/json',
       },
       put: {

@@ -1,5 +1,6 @@
-import { takeEvery, takeLatest } from 'redux-saga/effects';
+import { takeEvery, takeLatest, put } from 'redux-saga/effects';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
+import { toastr } from 'react-redux-toastr';
 import * as authSagas from './auth';
 import * as usersSagas from './users';
 import { dispatch } from '../store';
@@ -11,8 +12,11 @@ export default function* rootSaga() {
         dispatch(showLoading());
         yield generator(...args);
       } catch (e) {
-        console.log('error', e.response);
-        // yield put(Actions.Notification.errorMessage(''));
+        if (e.response.data.message === 'jwt expired') {
+          localStorage.removeItem('jwt-token-id');
+          yield put({ type: 'AUTHENTICATION_FAIL', error: e.response });
+        }
+        toastr.error(e.response.data.name, e.response.data.message);
       } finally {
         dispatch(hideLoading());
       }

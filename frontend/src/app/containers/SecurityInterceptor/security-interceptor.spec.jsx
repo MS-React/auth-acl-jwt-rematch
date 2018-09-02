@@ -19,7 +19,7 @@ describe('GIVEN <SecurityInterceptor />', () => {
         UnauthenticatedComponent: Login,
         authenticate: jest.fn(),
         authenticatingByToken: false,
-        logged: false
+        logged: false,
       };
 
       wrapper = shallow(<SecurityInterceptor {...defaultProps} />);

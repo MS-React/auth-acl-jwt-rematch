@@ -14,7 +14,7 @@ export function* loginRequest(action) {
   } catch (e) {
     localStorage.removeItem('jwt-token-id');
     yield put({ type: 'AUTHENTICATION_FAIL', error: e.response });
-    toastr.error(e.response.data.name, e.response.data.message);
+    throw e;
   }
 }
 
@@ -36,6 +36,7 @@ export function* logoutRequest() {
     yield put({ type: 'AUTHENTICATION_LOGOUT_SUCCESS' });
   } catch (e) {
     yield put({ type: 'AUTHENTICATION_LOGOUT_FAIL', error: e.response });
+    throw e;
   }
 }
 
@@ -47,15 +48,17 @@ export function* signUpRequest(action) {
   } catch (e) {
     yield put({ type: 'AUTHENTICATION_SIGNUP_USER_FAIL', error: e.response });
     toastr.error('Sign Up', e.response.data.message);
+    throw e;
   }
 }
 
 export function* forgotpasswordRequest(action) {
   try {
-    const response = yield call(apiService.forgotpassword, { data: { email: action.email } });
+    yield call(apiService.forgotpassword, { data: { email: action.email } });
     yield put({ type: 'AUTHENTICATION_FORGOTPASSWORD_SUCCESS', response: { send: true } });
   } catch (e) {
     yield put({ type: 'AUTHENTICATION_FORGOTPASSWORD_FAIL', response: { send: false } });
     toastr.error('Error', 'Unable to send Mail, try again later.');
+    throw e;
   }
 }

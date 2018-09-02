@@ -33,7 +33,10 @@ export default {
     secretKey: env.PUBNUB_SECRET_KEY
   },
   JWT: {
-    secretKey: env.JWT_SECRET_KEY
+    secretKey: env.JWT_SECRET_KEY,
+    config: {
+      expiresIn: 10
+    }
   },
   MAIL_SERVICE: {
     user: env.GMAIL_USER,
