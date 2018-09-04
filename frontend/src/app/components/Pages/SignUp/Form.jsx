@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row } from 'reactstrap';
-import FormInput from '../../Common/Form/FormInput';
+import FormInput from '../../Common/Form/Elements/Input';
 
 class SignUpForm extends React.PureComponent {
   static propTypes = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row } from 'reactstrap';
-import FormInput from '../../Common/Form/FormInput';
+import FormInput from '../../Common/Form/Elements/Input';
 
 class ForgotPasswordForm extends React.PureComponent {
   static propTypes = {
@@ -20,7 +20,7 @@ class ForgotPasswordForm extends React.PureComponent {
 
   render() {
     const { user, onChange, errors } = this.props;
-    const isEmailInvalid = (errors.email && errors.email !== '');
+    // const isEmailInvalid = (errors.email && errors.email !== '');
     return (
       <div>
         <div className="container">

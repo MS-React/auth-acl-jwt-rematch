@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Actions from '../../../actions';
 import ForgotPasswordForm from './Form';
-import { EMAIL_REGEXP } from '../../../constants/validations';
+// import { EMAIL_REGEXP } from '../../../constants/validations';
 
 import './ForgotPassword.scss';
 
@@ -44,12 +44,12 @@ class ForgotPassword extends React.PureComponent {
 
   validateForm = () => {
     const { user } = this.state;
-    const isValidEmail = EMAIL_REGEXP.test(user.email);
+    // const isValidEmail = EMAIL_REGEXP.test(user.email);
     const errors = {};
 
-    if (!isValidEmail) {
-      errors.email = 'Email is invalid';
-    }
+    // if (!isValidEmail) {
+    //   errors.email = 'Email is invalid';
+    // }
 
     this.setState({ errors });
 

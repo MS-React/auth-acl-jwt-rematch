@@ -35,7 +35,7 @@ export default {
   JWT: {
     secretKey: env.JWT_SECRET_KEY,
     config: {
-      expiresIn: 10
+      expiresIn: 40
     }
   },
   MAIL_SERVICE: {

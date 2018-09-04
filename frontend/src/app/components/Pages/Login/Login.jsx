@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 
-import FormInput from '../../Common/Form/FormInput';
+import LoginForm from './LoginForm';
 import Actions from '../../../actions';
 
 import './Login.scss';
@@ -16,34 +16,13 @@ class Login extends React.PureComponent {
     }).isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.handleInput = this.handleInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {
-      username: '',
-      password: '',
-    };
-  }
-
-  handleInput(event) {
-    this.setState({
-      [event.target.id]: event.target.value,
-    });
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    const { username, password } = this.state;
-
-    this.props.login(username, password);
-  }
-
-  render() {
+  componentDidMount() { // eslint-disable-line
     if (this.props.auth.logged) {
       return <Redirect to={{ pathname: '/' }} />;
     }
+  }
 
+  render() {
     return (
       <section className="login-page">
         <div className="login-page--form">
@@ -51,35 +30,21 @@ class Login extends React.PureComponent {
             <h1 className="h3 mb-3 font-weight-normal">
               Please sign in
             </h1>
-            <form id="login-form" onSubmit={this.handleSubmit}>
-              <FormInput
-                inputId="username"
-                label="Username or email address"
-                onChange={this.handleInput}
-                type="text"
-                name="username"
-                placeholder="Username or email address"
-                value={this.state.username}
-              />
-              <FormInput
-                inputId="password"
-                label="Password"
-                onChange={this.handleInput}
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={this.state.password}
-              />
-              <span>
-                Hint:
-                <i>
-                  username/password
-                </i>
-              </span>
-              <button className="btn btn-lg btn-primary btn-block" type="submit">
-                Sign in
-              </button>
-            </form>
+            <LoginForm
+              fields={{
+                name: {
+                  value: '',
+                  required: true,
+                  validation: 'isEmpty',
+                },
+                password: {
+                  value: '',
+                  required: true,
+                  validation: 'isEmpty',
+                },
+              }}
+              onSubmit={this.props.login}
+            />
           </div>
           <div className="authentication-actions">
             <Link to="/signup">Sign Up</Link>
@@ -96,7 +61,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: (name, password) => dispatch(Actions.Auth.loginRequest(name, password)),
+  login: formFields => dispatch(Actions.Auth.loginRequest(
+    formFields.name.value,
+    formFields.password.value,
+  )),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

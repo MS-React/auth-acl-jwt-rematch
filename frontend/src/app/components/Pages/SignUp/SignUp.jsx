@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Actions from '../../../actions';
 import SignUpForm from './Form';
-import { EMAIL_REGEXP } from '../../../constants/validations';
+// import { EMAIL_REGEXP } from '../../../constants/validations';
 
 import './SignUp.scss';
 
@@ -48,7 +48,7 @@ class SignUp extends React.PureComponent {
   validateForm = () => {
     const { user } = this.state;
     const isValidUsername = user.name !== '';
-    const isValidEmail = EMAIL_REGEXP.test(user.email);
+    // const isValidEmail = EMAIL_REGEXP.test(user.email);
     const isValidPassword = user.password !== '';
     const errors = {};
 
@@ -56,9 +56,9 @@ class SignUp extends React.PureComponent {
       errors.name = 'User name is required';
     }
 
-    if (!isValidEmail) {
-      errors.email = 'Email is invalid';
-    }
+    // if (!isValidEmail) {
+    //   errors.email = 'Email is invalid';
+    // }
 
     if (!isValidPassword) {
       errors.password = 'Password is invalid';
