@@ -1,6 +1,8 @@
-import * as jwt from 'jsonwebtoken';
 import { put, call } from 'redux-saga/effects';
+import * as jwt from 'jsonwebtoken';
 import { toastr } from 'react-redux-toastr';
+
+import { ACTION_TYPE } from '../constants';
 import { apiService } from '../api/ApiService';
 
 export function* loginRequest(action) {
@@ -10,11 +12,48 @@ export function* loginRequest(action) {
     const response = yield call(apiService.login, { data: { name, password } });
     const tokenPayload = jwt.decode(response.jwtSignature);
     localStorage.setItem('jwt-token-id', response.jwtSignature);
-    yield put({ type: 'AUTHENTICATION_SUCCESS', user: tokenPayload.user });
+    yield put({ type: ACTION_TYPE.AUTH.LOGIN.OK, user: tokenPayload.user });
   } catch (e) {
     localStorage.removeItem('jwt-token-id');
-    yield put({ type: 'AUTHENTICATION_FAIL', error: e.response });
+    yield put({ type: ACTION_TYPE.AUTH.LOGIN.ERROR, error: e.response });
     throw e;
+  }
+}
+
+export function* logoutRequest() {
+  try {
+    localStorage.removeItem('jwt-token-id');
+    yield put({ type: ACTION_TYPE.AUTH.LOGOUT.OK });
+  } catch (e) {
+    yield put({ type: ACTION_TYPE.AUTH.LOGOUT.ERROR, error: e.response });
+    throw e;
+  }
+}
+
+export function* signUpRequest(action) {
+  try {
+    yield call(apiService.signUp, { data: action.user });
+    yield put({ type: ACTION_TYPE.AUTH.SIGNUP.OK });
+    toastr.success('Sign Up', 'Successfully. Now you can login.');
+  } catch (e) {
+    yield put({ type: ACTION_TYPE.AUTH.SIGNUP.ERROR, error: e.response });
+    toastr.error('Sign Up', e.response.data.message);
+    throw e;
+  } finally {
+    yield put({ type: ACTION_TYPE.AUTH.SIGNUP.END });
+  }
+}
+
+export function* forgotpasswordRequest(action) {
+  try {
+    yield call(apiService.forgotpassword, { data: { email: action.email } });
+    yield put({ type: ACTION_TYPE.AUTH.FORGOTPASSWORD.OK });
+  } catch (e) {
+    yield put({ type: ACTION_TYPE.AUTH.FORGOTPASSWORD.ERROR });
+    toastr.error('Error', 'Unable to send Mail, try again later.');
+    throw e;
+  } finally {
+    yield put({ type: ACTION_TYPE.AUTH.FORGOTPASSWORD.END });
   }
 }
 
@@ -23,46 +62,9 @@ export function* getUserDataByToken(action) {
   try {
     if (!token) throw new Error('invalid auth data');
     const tokenDecoded = jwt.verify(token, 'somesecretkey');
-    yield put({ type: 'AUTHENTICATION_SUCCESS', user: tokenDecoded.user });
+    yield put({ type: ACTION_TYPE.AUTH.LOGIN.OK, user: tokenDecoded.user });
   } catch (e) {
     localStorage.removeItem('jwt-token-id');
-    yield put({ type: 'AUTHENTICATION_FAIL', error: e.response });
-  }
-}
-
-export function* logoutRequest() {
-  try {
-    localStorage.removeItem('jwt-token-id');
-    yield put({ type: 'AUTHENTICATION_LOGOUT_SUCCESS' });
-  } catch (e) {
-    yield put({ type: 'AUTHENTICATION_LOGOUT_FAIL', error: e.response });
-    throw e;
-  }
-}
-
-export function* signUpRequest(action) {
-  try {
-    yield call(apiService.signUp, { data: action.user });
-    yield put({ type: 'AUTHENTICATION_SIGNUP_USER_SUCCESS' });
-    toastr.success('Sign Up', 'Successfully. Now you can login.');
-  } catch (e) {
-    yield put({ type: 'AUTHENTICATION_SIGNUP_USER_FAIL', error: e.response });
-    toastr.error('Sign Up', e.response.data.message);
-    throw e;
-  } finally {
-    yield put({ type: 'AUTHENTICATION_SIGNUP_FINISH' });
-  }
-}
-
-export function* forgotpasswordRequest(action) {
-  try {
-    yield call(apiService.forgotpassword, { data: { email: action.email } });
-    yield put({ type: 'AUTHENTICATION_FORGOTPASSWORD_SUCCESS', response: { send: true } });
-  } catch (e) {
-    yield put({ type: 'AUTHENTICATION_FORGOTPASSWORD_FAIL', response: { send: false } });
-    toastr.error('Error', 'Unable to send Mail, try again later.');
-    throw e;
-  } finally {
-    yield put({ type: 'AUTHENTICATION_FORGOTPASSWORD_FINISH', response: { send: false } });
+    yield put({ type: ACTION_TYPE.AUTH.LOGIN.ERROR, error: e.response });
   }
 }

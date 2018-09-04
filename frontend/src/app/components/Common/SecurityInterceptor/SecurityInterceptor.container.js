@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import Actions from '../../actions';
+import Actions from '../../../actions';
 import SecurityInterceptor from './SecurityInterceptor';
 
 export default connect(

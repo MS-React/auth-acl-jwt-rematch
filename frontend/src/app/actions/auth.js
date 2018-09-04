@@ -1,35 +1,37 @@
+import { ACTION_TYPE } from '../constants';
+
 const loginRequest = (name, password) => ({
-  type: 'AUTHENTICATION_REQUEST',
+  type: ACTION_TYPE.AUTH.LOGIN.REQUEST,
   payload: {
     name,
     password,
   },
 });
 
+const logoutRequest = () => ({
+  type: ACTION_TYPE.AUTH.LOGOUT.REQUEST,
+});
+
 const signUpRequest = user => ({
-  type: 'AUTHENTICATION_SIGNUP_REQUEST',
+  type: ACTION_TYPE.AUTH.SIGNUP.REQUEST,
   user,
 });
 
-const logout = () => ({
-  type: 'AUTHENTICATION_LOGOUT_REQUEST',
+const forgotpasswordRequest = email => ({
+  type: ACTION_TYPE.AUTH.FORGOTPASSWORD.REQUEST,
+  email,
 });
 
 const getUserDataByToken = token => ({
-  type: 'AUTHENTICATION_GET_DATA_BY_TOKEN',
+  type: ACTION_TYPE.AUTH.TOKEN.REQUEST,
   payload: {
     token,
   },
 });
 
-const forgotpasswordRequest = email => ({
-  type: 'AUTHENTICATION_FORGOTPASSWORD_REQUEST',
-  email,
-});
-
 export default {
   loginRequest,
-  logout,
+  logoutRequest,
   getUserDataByToken,
   signUpRequest,
   forgotpasswordRequest,

@@ -1,9 +1,11 @@
 import { takeEvery, takeLatest, put } from 'redux-saga/effects';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { toastr } from 'react-redux-toastr';
+
+import { ACTION_TYPE } from '../constants';
+import { dispatch } from '../store';
 import * as authSagas from './auth';
 import * as usersSagas from './users';
-import { dispatch } from '../store';
 
 export default function* rootSaga() {
   const sagaErrorHandler = generator => (
@@ -14,7 +16,7 @@ export default function* rootSaga() {
       } catch (e) {
         if (e.response.data.message === 'jwt expired') {
           localStorage.removeItem('jwt-token-id');
-          yield put({ type: 'AUTHENTICATION_FAIL', error: e.response });
+          yield put({ type: ACTION_TYPE.AUTH.LOGIN.ERROR, error: e.response });
         }
         toastr.error(e.response.data.name, e.response.data.message);
       } finally {
@@ -24,14 +26,17 @@ export default function* rootSaga() {
   );
   const sagas = { ...authSagas, ...usersSagas };
 
-  yield takeEvery('AUTHENTICATION_REQUEST', sagaErrorHandler(sagas.loginRequest));
-  yield takeLatest('AUTHENTICATION_GET_DATA_BY_TOKEN', sagaErrorHandler(sagas.getUserDataByToken));
-  yield takeLatest('AUTHENTICATION_LOGOUT_REQUEST', sagaErrorHandler(sagas.logoutRequest));
-  yield takeEvery('AUTHENTICATION_SIGNUP_REQUEST', sagaErrorHandler(sagas.signUpRequest));
-  yield takeEvery('AUTHENTICATION_FORGOTPASSWORD_REQUEST', sagaErrorHandler(sagas.forgotpasswordRequest));
+  yield takeEvery(ACTION_TYPE.AUTH.LOGIN.REQUEST, sagaErrorHandler(sagas.loginRequest));
+  yield takeLatest(ACTION_TYPE.AUTH.LOGOUT.REQUEST, sagaErrorHandler(sagas.logoutRequest));
+  yield takeEvery(ACTION_TYPE.AUTH.SIGNUP.REQUEST, sagaErrorHandler(sagas.signUpRequest));
+  yield takeEvery(
+    ACTION_TYPE.AUTH.FORGOTPASSWORD.REQUEST,
+    sagaErrorHandler(sagas.forgotpasswordRequest),
+  );
+  yield takeLatest(ACTION_TYPE.AUTH.TOKEN.REQUEST, sagaErrorHandler(sagas.getUserDataByToken));
 
-  yield takeEvery('USERS_GET_ALL_USERS_REQUEST', sagaErrorHandler(sagas.getUsers));
-  yield takeEvery('USERS_CREATE_USER_REQUEST', sagaErrorHandler(sagas.createUser));
-  yield takeEvery('USERS_UPDATE_USER_REQUEST', sagaErrorHandler(sagas.updateUser));
-  yield takeEvery('USERS_DELETE_USER_REQUEST', sagaErrorHandler(sagas.deleteUser));
+  yield takeEvery(ACTION_TYPE.USERS.GET.REQUEST, sagaErrorHandler(sagas.getUsers));
+  yield takeEvery(ACTION_TYPE.USERS.CREATE.REQUEST, sagaErrorHandler(sagas.createUser));
+  yield takeEvery(ACTION_TYPE.USERS.UPDATE.REQUEST, sagaErrorHandler(sagas.updateUser));
+  yield takeEvery(ACTION_TYPE.USERS.DELETE.REQUEST, sagaErrorHandler(sagas.deleteUser));
 }

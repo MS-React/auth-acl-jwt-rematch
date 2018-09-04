@@ -1,3 +1,5 @@
+import { ACTION_TYPE } from '../constants';
+
 const initialState = {
   error: null,
   data: [],
@@ -6,13 +8,15 @@ const initialState = {
 
 const Users = (state = initialState, action) => {
   switch (action.type) {
-    case 'GET_ALL_USERS_SUCCESS':
+    case ACTION_TYPE.USERS.GET.OK:
       return { ...state, users: action.users };
-    case 'USERS_SELECT_USER':
-      return { ...state, selectedUser: action.selectedUser };
-    case 'CREATE_USER_SUCCESS':
+    case ACTION_TYPE.USERS.GET.ERROR:
+      return { ...state, error: action.error };
+    case ACTION_TYPE.USERS.CREATE.OK:
       return { ...state, users: [...state.users, action.user] };
-    case 'UPDATE_USER_SUCCESS':
+    case ACTION_TYPE.USERS.CREATE.ERROR:
+      return { ...state, error: action.error };
+    case ACTION_TYPE.USERS.UPDATE.OK:
       return {
         ...state,
         users: [
@@ -20,8 +24,14 @@ const Users = (state = initialState, action) => {
           ...state.users.filter(user => user.id !== action.user.id),
         ],
       };
-    case 'DELETE_USER_SUCCESS':
+    case ACTION_TYPE.USERS.UPDATE.ERROR:
+      return { ...state, error: action.error };
+    case ACTION_TYPE.USERS.DELETE.OK:
       return { ...state, users: state.users.filter(user => user.id !== action.id) };
+    case ACTION_TYPE.USERS.DELETE.ERROR:
+      return { ...state, error: action.error };
+    case ACTION_TYPE.USERS.SELECT:
+      return { ...state, selectedUser: action.selectedUser };
     default:
       return state;
   }

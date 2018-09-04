@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import ReduxToastr from 'react-redux-toastr';
 import LoadingBar from 'react-redux-loading-bar';
-import SecurityInterceptor from '../../containers/SecurityInterceptor';
+import SecurityInterceptor from '../Common/SecurityInterceptor';
 import LoginPage from '../Pages/Login';
 import SignUpPage from '../Pages/SignUp';
 import ForgotPasswordPage from '../Pages/ForgotPassword';

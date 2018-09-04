@@ -1,30 +1,31 @@
+import { ACTION_TYPE } from '../constants';
+
 const initialState = {
   logged: false,
 };
 
 const Auth = (state = initialState, action) => {
   switch (action.type) {
-    case 'AUTHENTICATION_SUCCESS':
+    case ACTION_TYPE.AUTH.LOGIN.OK:
       return { ...state, logged: true, ...action.auth };
-    case 'AUTHENTICATION_LOGOUT_FAIL':
-    case 'AUTHENTICATION_FAIL':
+    case ACTION_TYPE.AUTH.LOGIN.ERROR:
       return { ...state, logged: false, error: action.error };
-    case 'AUTHENTICATION_LOGIN_OK':
-      return { ...state, logged: true };
-    case 'AUTHENTICATION_LOGOUT_SUCCESS':
+    case ACTION_TYPE.AUTH.LOGOUT.OK:
       return { ...state, logged: false };
-    case 'AUTHENTICATION_SIGNUP_USER_SUCCESS':
+    case ACTION_TYPE.AUTH.LOGOUT.ERROR:
+      return { ...state, logged: false, error: action.error };
+    case ACTION_TYPE.AUTH.SIGNUP.OK:
       return { ...state, signup: true };
-    case 'AUTHENTICATION_SIGNUP_USER_FAIL':
+    case ACTION_TYPE.AUTH.SIGNUP.ERROR:
       return { ...state, signup: false, error: action.error };
-    case 'AUTHENTICATION_SIGNUP_FINISH':
+    case ACTION_TYPE.AUTH.SIGNUP.END:
       return { ...state, signup: false };
-    case 'AUTHENTICATION_FORGOTPASSWORD_SUCCESS':
-      return { ...state, forgotpasswordResponse: action.response };
-    case 'AUTHENTICATION_FORGOTPASSWORD_FAIL':
-      return { ...state, forgotpasswordResponse: action.response };
-    case 'AUTHENTICATION_FORGOTPASSWORD_FINISH':
-      return { ...state, forgotpasswordResponse: action.response };
+    case ACTION_TYPE.AUTH.FORGOTPASSWORD.OK:
+      return { ...state, forgotpasswordResponse: { send: true } };
+    case ACTION_TYPE.AUTH.FORGOTPASSWORD.ERROR:
+      return { ...state, forgotpasswordResponse: { send: false } };
+    case ACTION_TYPE.AUTH.FORGOTPASSWORD.FINISH:
+      return { ...state, forgotpasswordResponse: { send: false } };
     default:
       return state;
   }

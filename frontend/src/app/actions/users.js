@@ -1,26 +1,28 @@
+import { ACTION_TYPE } from '../constants';
+
 const getUsers = params => ({
-  type: 'USERS_GET_ALL_USERS_REQUEST',
+  type: ACTION_TYPE.USERS.GET.REQUEST,
   params,
 });
 
-const selectUser = user => ({
-  type: 'USERS_SELECT_USER',
-  selectedUser: user,
-});
-
 const createUser = user => ({
-  type: 'USERS_CREATE_USER_REQUEST',
+  type: ACTION_TYPE.USERS.CREATE.REQUEST,
   user,
 });
 
 const updateUser = user => ({
-  type: 'USERS_UPDATE_USER_REQUEST',
+  type: ACTION_TYPE.USERS.UPDATE.REQUEST,
   user,
 });
 
 const deleteUser = user => ({
-  type: 'USERS_DELETE_USER_REQUEST',
+  type: ACTION_TYPE.USERS.DELETE.REQUEST,
   user,
+});
+
+const selectUser = user => ({
+  type: ACTION_TYPE.USERS.SELECT,
+  selectedUser: user,
 });
 
 export default {

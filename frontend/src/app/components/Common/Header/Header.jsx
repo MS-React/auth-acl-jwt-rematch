@@ -33,7 +33,7 @@ Header.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(Actions.Auth.logout()),
+  logout: () => dispatch(Actions.Auth.logoutRequest()),
 });
 
 export default connect(null, mapDispatchToProps)(Header);
