@@ -1,50 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Row } from 'reactstrap';
+
+import FormHOC from '../../Common/Form/FormHOC';
 import FormInput from '../../Common/Form/Elements/Input';
 
-class ForgotPasswordForm extends React.PureComponent {
-  static propTypes = {
-    onChange: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired,
-    errors: PropTypes.shape({
-      email: PropTypes.string,
-    }),
-  };
+const ForgotPasswordForm = ({
+  onSubmit, onInputChange, fields, errors,
+}) => (
+  <form id="forgotpassword-form" onSubmit={onSubmit} className="forgotpassword-form">
+    <div className="container">
+      <FormInput
+        inputId="email"
+        label="Email"
+        type="email"
+        onChange={onInputChange}
+        value={fields.email.value}
+        name="email"
+        placeholder="Email"
+        required={fields.email.required}
+        invalid={errors.email && true}
+        feedback={errors.email}
+      />
+    </div>
+    <button type="submit" className="btn btn-primary">
+      Send
+    </button>
+  </form>
+);
 
-  static defaultProps = {
-    errors: {
-      email: '',
-    },
-  };
+ForgotPasswordForm.propTypes = {
+  fields: PropTypes.object.isRequired,
+  errors: PropTypes.object,
+  onSubmit: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+};
 
-  render() {
-    const { user, onChange, errors } = this.props;
-    // const isEmailInvalid = (errors.email && errors.email !== '');
-    return (
-      <div>
-        <div className="container">
-          <Row>
-            <section>
-              <form>
-                <FormInput
-                  inputId="email"
-                  label="Email"
-                  type="email"
-                  onChange={onChange}
-                  value={user.email}
-                  name="email"
-                  placeholder="Email"
-                  required
-                  feedback={errors.email}
-                />
-              </form>
-            </section>
-          </Row>
-        </div>
-      </div>
-    );
-  }
-}
+ForgotPasswordForm.defaultProps = {
+  errors: {},
+};
 
-export default ForgotPasswordForm;
+export default (FormHOC(ForgotPasswordForm));

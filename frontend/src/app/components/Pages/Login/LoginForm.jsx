@@ -5,7 +5,7 @@ import FormHOC from '../../Common/Form/FormHOC';
 import FormInput from '../../Common/Form/Elements/Input';
 
 const LoginForm = ({
-  isSubmitDisabled, onSubmit, onInputChange, fields, errors,
+  onSubmit, onInputChange, fields, errors,
 }) => (
   <form id="login-form" onSubmit={onSubmit}>
     <FormInput
@@ -53,12 +53,10 @@ LoginForm.propTypes = {
   errors: PropTypes.object,
   onSubmit: PropTypes.func.isRequired,
   onInputChange: PropTypes.func.isRequired,
-  isSubmitDisabled: PropTypes.bool,
 };
 
 LoginForm.defaultProps = {
   errors: {},
-  isSubmitDisabled: false,
 };
 
 export default (FormHOC(LoginForm));
