@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row } from 'reactstrap';
-import FormInput from '../../Common/Form/Elements/Input';
-import FormSelect from '../../Common/Form/Elements/Select';
+import FormInput from '../../Form/Elements/Input';
+import FormSelect from '../../Form/Elements/Select';
 
 class UsersForm extends React.PureComponent {
   static propTypes = {

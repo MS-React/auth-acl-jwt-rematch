@@ -6,8 +6,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import Actions from '../../../actions';
 
-import Header from '../Partials/Header';
-import ActionButtons from '../ActionButtons/ActionButtons';
+import Header from '../../Common/Header';
+import ActionButtons from '../../Common/ActionButtons/ActionButtons';
 
 import './Home.scss';
 

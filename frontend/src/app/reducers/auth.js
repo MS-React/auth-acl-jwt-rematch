@@ -17,10 +17,14 @@ const Auth = (state = initialState, action) => {
       return { ...state, signup: true };
     case 'AUTHENTICATION_SIGNUP_USER_FAIL':
       return { ...state, signup: false, error: action.error };
+    case 'AUTHENTICATION_SIGNUP_FINISH':
+      return { ...state, signup: false };
     case 'AUTHENTICATION_FORGOTPASSWORD_SUCCESS':
-      return { ...state, signup: false, forgotpasswordResponse: action.response };
+      return { ...state, forgotpasswordResponse: action.response };
     case 'AUTHENTICATION_FORGOTPASSWORD_FAIL':
-      return { ...state, signup: false, forgotpasswordResponse: action.response };
+      return { ...state, forgotpasswordResponse: action.response };
+    case 'AUTHENTICATION_FORGOTPASSWORD_FINISH':
+      return { ...state, forgotpasswordResponse: action.response };
     default:
       return state;
   }

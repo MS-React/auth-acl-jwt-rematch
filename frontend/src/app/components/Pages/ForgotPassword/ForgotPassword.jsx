@@ -16,6 +16,7 @@ const forgotPasswordField = {
 };
 
 const ForgotPassword = ({ forgotpassword, forgotpasswordResponse }) => {
+  // @TODO: Armar como en RocketWagon el tema de el PageContainer que tiene los /page.match/sent..
   if (forgotpasswordResponse.send) {
     return (
       <section className="forgotpassword-page">

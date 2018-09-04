@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import { connect } from 'react-redux';
-import MsModal from '../../Common/Modal/MsModal';
-import UsersForm from '../UsersForm/UsersForm';
-// import { EMAIL_REGEXP } from '../../../constants/validations';
+import MsModal from '../Modal/MsModal';
+import UsersForm from './UsersForm';
 
 import './ActionButtons.scss';
 
@@ -130,7 +129,7 @@ export class ActionButtons extends React.Component {
   validateForm = () => {
     const { user } = this.state;
     const isValidUsername = user.name !== '';
-    // const isValidEmail = EMAIL_REGEXP.test(user.email);
+    const isValidEmail = user.email !== '';
     const isValidPassword = user.password !== '';
     const errors = {};
 
@@ -138,9 +137,9 @@ export class ActionButtons extends React.Component {
       errors.name = 'User name is required';
     }
 
-    // if (!isValidEmail) {
-    //   errors.email = 'Email is invalid';
-    // }
+    if (!isValidEmail) {
+      errors.email = 'Email is invalid';
+    }
 
     if (!isValidPassword) {
       errors.password = 'Password is invalid';

@@ -34,8 +34,8 @@ const fields = {
   },
 };
 
-const SignUp = ({ signUpResponse, signUp }) => {
-  if (signUpResponse) {
+const SignUp = ({ signUp, signupResponse }) => {
+  if (signupResponse) {
     return <Redirect to={{ pathname: '/' }} />;
   }
 
@@ -58,29 +58,26 @@ const SignUp = ({ signUpResponse, signUp }) => {
 
 SignUp.propTypes = {
   signUp: PropTypes.func.isRequired,
-  signUpResponse: PropTypes.bool,
+  signupResponse: PropTypes.bool,
 };
 
 SignUp.defaultProps = {
-  signUpResponse: false,
+  signupResponse: false,
 };
 
 const mapStateToProps = state => ({
-  signUpResponse: state.Auth.signup,
+  signupResponse: state.Auth.signup,
 });
 
 const mapDispatchToProps = dispatch => ({
-  signUp: formFields => { // eslint-disable-line
-    const user = {
-      name: formFields.name.value,
-      email: formFields.email.value,
-      password: formFields.password.value,
-      phone: formFields.phone.value,
-      skypeId: formFields.skypeId.value,
-      rol: formFields.name.value,
-    };
-    dispatch(Actions.Auth.signUpRequest(user));
-  },
+  signUp: formFields => dispatch(Actions.Auth.signUpRequest({
+    name: formFields.name.value,
+    email: formFields.email.value,
+    password: formFields.password.value,
+    phone: formFields.phone.value,
+    skypeId: formFields.skypeId.value,
+    rol: formFields.name.value,
+  })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

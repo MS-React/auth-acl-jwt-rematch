@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class ErrorBoundary extends React.PureComponent {
+export default class Error extends React.PureComponent {
   static propTypes = {
     children: PropTypes.any.isRequired,
   };

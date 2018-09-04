@@ -49,6 +49,8 @@ export function* signUpRequest(action) {
     yield put({ type: 'AUTHENTICATION_SIGNUP_USER_FAIL', error: e.response });
     toastr.error('Sign Up', e.response.data.message);
     throw e;
+  } finally {
+    yield put({ type: 'AUTHENTICATION_SIGNUP_FINISH' });
   }
 }
 
@@ -60,5 +62,7 @@ export function* forgotpasswordRequest(action) {
     yield put({ type: 'AUTHENTICATION_FORGOTPASSWORD_FAIL', response: { send: false } });
     toastr.error('Error', 'Unable to send Mail, try again later.');
     throw e;
+  } finally {
+    yield put({ type: 'AUTHENTICATION_FORGOTPASSWORD_FINISH', response: { send: false } });
   }
 }

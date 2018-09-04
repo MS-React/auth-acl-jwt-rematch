@@ -55,7 +55,9 @@ export class AuthController extends Controller {
     const sender = sendMail(mail);
 
     try {
-      return sender({});
+      if (user instanceof UserFormatter) {
+        return sender({});
+      }
     } catch (e) {
       throw new ApiError({
         statusCode: 500,
