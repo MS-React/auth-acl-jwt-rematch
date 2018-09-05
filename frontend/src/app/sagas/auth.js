@@ -2,7 +2,7 @@ import { put, call } from 'redux-saga/effects';
 import * as jwt from 'jsonwebtoken';
 import { toastr } from 'react-redux-toastr';
 
-import { ACTION_TYPE } from '../constants';
+import { ACTION_TYPE, SETTINGS } from '../constants';
 import { apiService } from '../api/ApiService';
 
 export function* loginRequest(action) {
@@ -10,11 +10,11 @@ export function* loginRequest(action) {
 
   try {
     const response = yield call(apiService.login, { data: { name, password } });
-    const tokenPayload = jwt.decode(response.jwtSignature);
-    localStorage.setItem('jwt-token-id', response.jwtSignature);
+    const tokenPayload = jwt.verify(response.jwtSignature, SETTINGS.JWT.PUBLIC_KEY);
+    localStorage.setItem(SETTINGS.JWT.TOKEN_ID, response.jwtSignature);
     yield put({ type: ACTION_TYPE.AUTH.LOGIN.OK, user: tokenPayload.user });
   } catch (e) {
-    localStorage.removeItem('jwt-token-id');
+    localStorage.removeItem(SETTINGS.JWT.TOKEN_ID);
     yield put({ type: ACTION_TYPE.AUTH.LOGIN.ERROR, error: e.response });
     throw e;
   }
@@ -22,7 +22,7 @@ export function* loginRequest(action) {
 
 export function* logoutRequest() {
   try {
-    localStorage.removeItem('jwt-token-id');
+    localStorage.removeItem(SETTINGS.JWT.TOKEN_ID);
     yield put({ type: ACTION_TYPE.AUTH.LOGOUT.OK });
   } catch (e) {
     yield put({ type: ACTION_TYPE.AUTH.LOGOUT.ERROR, error: e.response });
@@ -64,7 +64,7 @@ export function* getUserDataByToken(action) {
     const tokenDecoded = jwt.verify(token, 'somesecretkey');
     yield put({ type: ACTION_TYPE.AUTH.LOGIN.OK, user: tokenDecoded.user });
   } catch (e) {
-    localStorage.removeItem('jwt-token-id');
+    localStorage.removeItem(SETTINGS.JWT.TOKEN_ID);
     yield put({ type: ACTION_TYPE.AUTH.LOGIN.ERROR, error: e.response });
   }
 }
