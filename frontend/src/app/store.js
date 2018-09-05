@@ -1,7 +1,14 @@
-import { init } from '@rematch/core';
+import { createStore, applyMiddleware } from 'redux';
+import { loadingBarMiddleware } from 'react-redux-loading-bar';
+import createSagaMiddleware from 'redux-saga';
 
-const store = init({
-  models: {},
-});
+import reducers from './reducers';
+import rootSaga from './sagas';
 
-export default store;
+const sagaMiddleware = createSagaMiddleware();
+export const store = createStore(
+  reducers,
+  applyMiddleware(sagaMiddleware, loadingBarMiddleware()),
+);
+export const { dispatch } = store;
+sagaMiddleware.run(rootSaga);

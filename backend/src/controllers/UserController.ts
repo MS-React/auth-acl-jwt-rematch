@@ -40,20 +40,20 @@ export class UserController extends Controller {
   }
 
   @Response(400, 'Bad request')
-  @Security('admin')
+  @Security('jwt', ['admin'])
   @Post()
   public async create(@Body() body: IUserModel): Promise<IUserModel> {
     return this.service.create(body);
   }
 
   @Response(400, 'Bad request')
-  @Security('admin')
+  @Security('jwt', ['admin'])
   @Put('{id}')
   public async update(id: string, @Body() body: IUserModel): Promise<IUserModel> {
     return this.service.update(id, body);
   }
 
-  @Security('admin')
+  @Security('jwt', ['admin'])
   @Delete('{id}')
   public async delete(id: string): Promise<void> {
     return this.service.delete(id);

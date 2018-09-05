@@ -10,9 +10,11 @@ export class UserEntity extends BaseEntity {
   protected attributes: Sequelize.DefineAttributes = {
     _id: { type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV4 },
     name: { type: Sequelize.STRING, allowNull: false },
+    password: { type: Sequelize.STRING, allowNull: false },
     email: { type: Sequelize.STRING, allowNull: false, unique: true },
     phone: { type: Sequelize.STRING, allowNull: true, unique: true },
-    skypeId: { type: Sequelize.STRING, allowNull: true, unique: true }
+    skypeId: { type: Sequelize.STRING, allowNull: true, unique: true },
+    rol: { type: Sequelize.STRING, allowNull: false }
   };
   protected options: Sequelize.DefineOptions<any> = { name: { plural: 'users' } };
 

@@ -1,14 +1,2 @@
-$black: #000;
-
-.game-container {
-  align-content: center;
-  align-items: center;
-  border: 1px solid $black;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  padding: 20px;
-  text-align: center;
-  width: 300px;
-}
+@import "_bootstrap-custom";
+@import "node_modules/react-redux-toastr/src/styles/index";
