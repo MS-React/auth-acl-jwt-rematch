@@ -1,5 +1,5 @@
 import axios from 'axios';
-import settings from '../../config/settings';
+import config from 'config';
 
 class ApiService {
   http = axios;
@@ -26,7 +26,7 @@ class ApiService {
 
     return this.http({
       method: method.toLowerCase(),
-      baseURL: settings.SERVICE.BASE_URL,
+      baseURL: config.SERVICE.BASE_URL,
       url,
       params,
       data,

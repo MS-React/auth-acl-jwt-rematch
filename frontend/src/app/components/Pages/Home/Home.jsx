@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Col, Row } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
+import Logger from 'root-app/utils/Logger';
 import Actions from '../../../actions';
 
 import Header from '../../Common/Header';
@@ -31,6 +32,7 @@ class Home extends React.PureComponent {
   };
 
   componentDidMount() {
+    Logger.info('Welcome to Home Page');
     this.props.getUsers();
   }
 

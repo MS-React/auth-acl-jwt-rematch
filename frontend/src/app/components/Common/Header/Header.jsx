@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { i18n } from 'root-app/utils/i18n';
 import Actions from '../../../actions';
 
 import './Header.scss';
@@ -13,7 +14,7 @@ const Header = ({ logout }) => (
           className="navbar-brand d-flex align-items-center text-dark"
           href="/"
         >
-          CRUD - JWT Application
+          {i18n.translate('header.title')}
         </a>
 
         <button

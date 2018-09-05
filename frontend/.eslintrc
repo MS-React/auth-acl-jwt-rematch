@@ -80,13 +80,12 @@
       "error",
       "always"
     ],
+    "no-confusing-arrow": "off",
     "jsx-a11y/label-has-for": "off",
     "react/prefer-stateless-function": "off",
     "import/no-named-as-default": "off",
+    "import/no-unresolved": "off",
     "react/forbid-prop-types": "off",
     "react/destructuring-assignment": "off"
   },
-  "globals": {
-    "errorService": true
-  }
 }
