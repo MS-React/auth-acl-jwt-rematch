@@ -3,36 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Actions from '../../../actions';
-import SignUpForm from './Form';
+import SignUpForm, { fields } from '../../Common/Form/Templates/SignUp';
 
 import './SignUp.scss';
-
-const fields = {
-  name: {
-    value: '',
-    required: true,
-    validation: 'isEmpty',
-  },
-  email: {
-    value: '',
-    required: true,
-    validation: 'isValidEmail',
-  },
-  password: {
-    value: '',
-    required: true,
-    validation: 'isEmpty',
-  },
-  phone: {
-    value: '',
-  },
-  skypeId: {
-    value: '',
-  },
-  rol: {
-    value: 'member',
-  },
-};
 
 const SignUp = ({ signUp, signupResponse }) => {
   if (signupResponse) {

@@ -3,23 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import LoginForm from './LoginForm';
+import LoginForm, { fields } from '../../Common/Form/Templates/Login';
 import Actions from '../../../actions';
 
 import './Login.scss';
-
-const loginFields = {
-  name: {
-    value: '',
-    required: true,
-    validation: 'isEmpty',
-  },
-  password: {
-    value: '',
-    required: true,
-    validation: 'isEmpty',
-  },
-};
 
 const Login = ({ login }) => (
   <section className="login-page">
@@ -29,7 +16,7 @@ const Login = ({ login }) => (
           Please sign in
         </h1>
         <LoginForm
-          fields={loginFields}
+          fields={fields}
           onSubmit={login}
         />
       </div>

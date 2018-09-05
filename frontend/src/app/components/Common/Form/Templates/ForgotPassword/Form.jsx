@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import FormHOC from '../../Common/Form/FormHOC';
-import FormInput from '../../Common/Form/Elements/Input';
+import FormHOC from '../../FormHOC';
+import FormInput from '../../Elements/Input';
 
 const ForgotPasswordForm = ({
   onSubmit, onInputChange, fields, errors,

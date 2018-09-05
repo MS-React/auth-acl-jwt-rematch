@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import { connect } from 'react-redux';
-import MsModal from '../Modal/MsModal';
-import UsersForm from './UsersForm';
+import MsModal from '../../../Common/Modal/MsModal';
+import UsersForm, { fields } from '../../../Common/Form/Templates/CreateUser';
 
 import './ActionButtons.scss';
 
@@ -16,39 +16,6 @@ const EMPTY_USER = {
   rol: '',
   phone: '',
   skypeId: '',
-};
-
-const EMPTY_FORM_FIELDS = {
-  id: {
-    value: '',
-  },
-  _id: {
-    value: '',
-  },
-  name: {
-    value: '',
-    required: true,
-    validation: 'isEmpty',
-  },
-  email: {
-    value: '',
-    required: true,
-    validation: 'isValidEmail',
-  },
-  password: {
-    value: '',
-    required: true,
-    validation: 'isEmpty',
-  },
-  phone: {
-    value: '',
-  },
-  skypeId: {
-    value: '',
-  },
-  rol: {
-    value: '',
-  },
 };
 
 const DEFAULT_USER_MODAL_LABELS = {
@@ -100,7 +67,7 @@ export class ActionButtons extends React.PureComponent {
       );
     }
 
-    const formField = JSON.parse(JSON.stringify(EMPTY_FORM_FIELDS));
+    const formField = JSON.parse(JSON.stringify(fields));
     Object.keys(user).forEach((field) => {
       formField[field].value = user[field];
     });

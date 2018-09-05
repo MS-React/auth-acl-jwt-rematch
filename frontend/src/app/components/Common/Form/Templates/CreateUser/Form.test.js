@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import UsersForm from './UsersForm';
+import UsersForm from './Form';
 
 function setup(props) {
   return shallow(<UsersForm {...props} />);

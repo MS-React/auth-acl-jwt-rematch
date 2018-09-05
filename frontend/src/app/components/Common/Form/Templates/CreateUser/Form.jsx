@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import FormHOC from '../../Form/FormHOC';
-import FormInput from '../../Form/Elements/Input';
-import FormSelect from '../../Form/Elements/Select';
+import FormHOC from '../../FormHOC';
+import FormInput from '../../Elements/Input';
+import FormSelect from '../../Elements/Select';
 
 const UsersForm = ({
   onInputChange, fields, errors,

@@ -3,17 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Actions from '../../../actions';
-import ForgotPasswordForm from './Form';
+import ForgotPasswordForm, { fields } from '../../Common/Form/Templates/ForgotPassword';
 
 import './ForgotPassword.scss';
-
-const forgotPasswordField = {
-  email: {
-    value: '',
-    required: true,
-    validation: 'isValidEmail',
-  },
-};
 
 const ForgotPassword = ({ forgotpassword, forgotpasswordResponse }) => {
   // @TODO: Armar como en RocketWagon el tema de el PageContainer que tiene los /page.match/sent..
@@ -44,7 +36,7 @@ const ForgotPassword = ({ forgotpassword, forgotpasswordResponse }) => {
           Write down your email account and we will send you an email with a new password.
         </h3>
         <ForgotPasswordForm
-          fields={forgotPasswordField}
+          fields={fields}
           onSubmit={forgotpassword}
         />
       </div>
@@ -70,7 +62,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  forgotpassword: fields => dispatch(Actions.Auth.forgotpasswordRequest(fields.email.value)),
+  forgotpassword: formF => dispatch(Actions.Auth.forgotpasswordRequest(formF.email.value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);
