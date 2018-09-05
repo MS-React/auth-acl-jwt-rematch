@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import FormInput from './FormInput';
+import FormInput from './Input';
 
 function setup(props) {
   return shallow(<FormInput {...props} />);
