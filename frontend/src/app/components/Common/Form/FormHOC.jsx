@@ -58,13 +58,17 @@ const FormHOC = FormComponent => (
       }));
     }
 
-    handleSubmit(event) {
-      event.preventDefault();
+    triggerForm() {
       if (!this.canSubmitForm()) {
         return;
       }
 
       this.props.onSubmit(this.state.fields);
+    }
+
+    handleSubmit(event) {
+      event.preventDefault();
+      this.triggerForm();
     }
 
     render() {

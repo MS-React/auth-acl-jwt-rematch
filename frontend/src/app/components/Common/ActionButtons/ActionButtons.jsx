@@ -8,6 +8,8 @@ import UsersForm from './UsersForm';
 import './ActionButtons.scss';
 
 const EMPTY_USER = {
+  id: '',
+  _id: '',
   name: '',
   email: '',
   password: '',
@@ -16,11 +18,44 @@ const EMPTY_USER = {
   skypeId: '',
 };
 
+const EMPTY_FORM_FIELDS = {
+  id: {
+    value: '',
+  },
+  _id: {
+    value: '',
+  },
+  name: {
+    value: '',
+    required: true,
+    validation: 'isEmpty',
+  },
+  email: {
+    value: '',
+    required: true,
+    validation: 'isValidEmail',
+  },
+  password: {
+    value: '',
+    required: true,
+    validation: 'isEmpty',
+  },
+  phone: {
+    value: '',
+  },
+  skypeId: {
+    value: '',
+  },
+  rol: {
+    value: '',
+  },
+};
+
 const DEFAULT_USER_MODAL_LABELS = {
   confirmButtonText: 'Save',
 };
 
-export class ActionButtons extends React.Component {
+export class ActionButtons extends React.PureComponent {
   static propTypes = {
     user: PropTypes.object,
     onConfirm: PropTypes.func.isRequired,
@@ -39,6 +74,7 @@ export class ActionButtons extends React.Component {
       isUserModalOpen: false,
       errors: {},
     };
+    this.userForm = React.createRef();
   }
 
   componentWillReceiveProps({ user: newUser }) {
@@ -54,10 +90,7 @@ export class ActionButtons extends React.Component {
   }
 
   getModalBody = () => {
-    const {
-      user,
-      errors,
-    } = this.state;
+    const { user, errors } = this.state;
 
     if (this.state.actionType === 'delete') {
       return (
@@ -67,11 +100,17 @@ export class ActionButtons extends React.Component {
       );
     }
 
+    const formField = JSON.parse(JSON.stringify(EMPTY_FORM_FIELDS));
+    Object.keys(user).forEach((field) => {
+      formField[field].value = user[field];
+    });
+
     return (
       <UsersForm
-        onChange={this.updateUserState}
-        user={user}
+        fields={formField}
         errors={errors}
+        onSubmit={this.saveUser}
+        ref={this.userForm}
       />
     );
   };
@@ -106,16 +145,6 @@ export class ActionButtons extends React.Component {
     }, this.toggle);
   };
 
-  updateUserState = (event) => {
-    event.persist();
-    this.setState(prevState => ({
-      user: {
-        ...prevState.user,
-        [event.target.name]: event.target.value,
-      },
-    }));
-  };
-
   toggle = () => {
     this.setState(prevState => ({
       isUserModalOpen: !prevState.isUserModalOpen,
@@ -126,45 +155,25 @@ export class ActionButtons extends React.Component {
 
   isUserMatchById = (sourceUser = {}, targetUser = {}) => sourceUser.id === targetUser.id;
 
-  validateForm = () => {
-    const { user } = this.state;
-    const isValidUsername = user.name !== '';
-    const isValidEmail = user.email !== '';
-    const isValidPassword = user.password !== '';
-    const errors = {};
-
-    if (!isValidUsername) {
-      errors.name = 'User name is required';
-    }
-
-    if (!isValidEmail) {
-      errors.email = 'Email is invalid';
-    }
-
-    if (!isValidPassword) {
-      errors.password = 'Password is invalid';
-    }
-
-    this.setState({ errors });
-
-    return errors;
-  };
-
-  canSubmitForm = () => {
-    const errors = this.validateForm();
-    return (Object.keys(errors).length === 0 && errors.constructor === Object);
-  };
-
-  saveUser = () => {
-    if (!this.canSubmitForm()) {
-      return;
-    }
-
-    if (typeof this.props.onConfirm === 'function') {
-      this.props.onConfirm(this.state.actionType, this.state.user);
+  saveUser = (response) => {
+    if (response) {
+      const user = {};
+      Object.keys(response).forEach((field) => {
+        user[field] = response[field].value;
+      });
+      this.props.onConfirm(this.state.actionType, user);
       this.toggle();
     }
   };
+
+  triggerForm = () => {
+    if (this.state.actionType === 'delete') {
+      this.props.onConfirm(this.state.actionType, this.state.user);
+      this.toggle();
+    } else {
+      this.userForm.current.triggerForm();
+    }
+  }
 
   cancel = () => {
     let user = EMPTY_USER;
@@ -176,7 +185,6 @@ export class ActionButtons extends React.Component {
 
     this.setState({
       user: { ...user },
-      errors: {},
     }, this.toggle);
   };
 
@@ -215,7 +223,7 @@ export class ActionButtons extends React.Component {
           cancelButtonLabel="Cancel"
           body={modalBody}
           isOpen={this.state.isUserModalOpen}
-          okCallback={this.saveUser}
+          okCallback={this.triggerForm}
           cancelCallback={this.cancel}
           modalTitle={modalInfo.title}
         />
