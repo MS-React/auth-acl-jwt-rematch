@@ -24,7 +24,7 @@ const Auth = (state = initialState, action) => {
       return { ...state, forgotpasswordResponse: { send: true } };
     case ACTION_TYPE.AUTH.FORGOTPASSWORD.ERROR:
       return { ...state, forgotpasswordResponse: { send: false } };
-    case ACTION_TYPE.AUTH.FORGOTPASSWORD.FINISH:
+    case ACTION_TYPE.AUTH.FORGOTPASSWORD.END:
       return { ...state, forgotpasswordResponse: { send: false } };
     default:
       return state;

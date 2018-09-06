@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { i18n } from 'root-app/utils/i18n';
+import { i18n } from '../../../utils/i18n';
 import Actions from '../../../actions';
 
 import './Header.scss';

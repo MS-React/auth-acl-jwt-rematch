@@ -7,8 +7,12 @@ class Translation {
   defaultLocale = 'en';
 
   constructor() {
-    this.internationalization.setTranslations(languages);
-    this.internationalization.setLocale(this.defaultLocale);
+    this.setTranslations(languages);
+    this.setLocale(this.defaultLocale);
+  }
+
+  setTranslations = (translations) => {
+    this.internationalization.setTranslations(translations);
   }
 
   translate = (key, options) => (options)

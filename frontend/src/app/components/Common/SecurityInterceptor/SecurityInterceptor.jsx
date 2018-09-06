@@ -27,8 +27,9 @@ export default class SecurityInterceptor extends React.PureComponent {
     } = this.props;
 
     if (!logged) {
-      return <UnauthenticatedComponent />;
+      return <UnauthenticatedComponent key="unauthenticated-key" />;
     }
+
     return (
       <Route {...rest}>
         <React.Fragment>

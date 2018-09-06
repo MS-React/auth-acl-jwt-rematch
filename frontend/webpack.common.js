@@ -21,7 +21,6 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     alias: {
       config: `${SRC_DIR}/config/${NODE_ENV}.js`,
-      'root-app': `${SRC_DIR}/app`,
     },
   },
   module: {
