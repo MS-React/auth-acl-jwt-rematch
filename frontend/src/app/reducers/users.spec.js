@@ -1,17 +1,19 @@
-import actions from '../actions/auth';
-import Auth from './auth';
+import actions from '../actions/users';
+import Users from './users';
 
-describe('Auth reducer', () => {
+describe('Users reducer', () => {
   let action;
   let newState;
   const initialState = {
-    logged: false,
+    error: null,
+    data: [],
+    selectedUser: {},
   };
 
   describe('is called with loginOk action', () => {
     beforeEach(() => {
       action = actions.loginOk({ id: 'id-user', name: 'name', token: 'pepe' });
-      newState = Auth(initialState, action);
+      newState = Users(initialState, action);
     });
 
     it('should updates the state with the logged user and logged:true when ACTION_TYPE.AUTH.LOGIN.OK', () => {
