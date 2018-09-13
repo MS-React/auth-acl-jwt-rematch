@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Col, Row } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import ActionButtons from './ActionButtons';
 
 export default class CrudTable extends React.PureComponent {
@@ -81,6 +81,7 @@ export default class CrudTable extends React.PureComponent {
       onSelect: this.setSelectedRow,
     };
     const pagination = paginationFactory();
+    const { SearchBar } = Search;
 
     return (
       <div className="container">
@@ -100,13 +101,26 @@ export default class CrudTable extends React.PureComponent {
           </Col>
         </Row>
         <div className="home-page--table">
-          <BootstrapTable
+          <ToolkitProvider
             keyField="id"
+            search
             data={data}
             columns={tableColumns}
-            selectRow={selectRow}
-            pagination={pagination}
-          />
+          >
+            {
+              props => (
+                <div>
+                  <SearchBar {...props.searchProps} />
+                  <hr />
+                  <BootstrapTable
+                    selectRow={selectRow}
+                    pagination={pagination}
+                    {...props.baseProps}
+                  />
+                </div>
+              )
+            }
+          </ToolkitProvider>
         </div>
       </div>
     );

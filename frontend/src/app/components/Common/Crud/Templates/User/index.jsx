@@ -9,12 +9,15 @@ import CrudTable from '../../Elements/CrudTable/CrudTable';
 const columns = [{
   dataField: 'name',
   text: 'Full Name',
+  sort: true,
 }, {
   dataField: 'email',
   text: 'Email',
+  sort: true,
 }, {
   dataField: 'phone',
   text: 'Phone Number',
+  sort: true,
 }];
 
 const CrudUserTable = ({
