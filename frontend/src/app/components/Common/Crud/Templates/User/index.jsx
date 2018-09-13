@@ -67,7 +67,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   select: user => dispatch(Actions.Users.selectUser(user)),
-  get: () => dispatch(Actions.Users.getUsers({ page: 0, limit: 35 })),
+  get: () => dispatch(Actions.Users.getUsers({ page: 1, limit: 35 })),
   create: user => dispatch(Actions.Users.createUser(user)),
   update: user => dispatch(Actions.Users.updateUser(user)),
   deleteUsers: user => dispatch(Actions.Users.deleteUser(user)),

@@ -26,16 +26,8 @@ const FormHOC = FormComponent => (
     }
 
     validateForm = () => {
-      const errors = {};
       const { fields } = this.state;
-
-      Object.keys(fields).forEach(field => { // eslint-disable-line
-        const fieldI = fields[field];
-        if (fieldI.validation && !Validations[fieldI.validation](fieldI.value)) {
-          errors[field] = `${field[0].toUpperCase() + field.slice(1)} is invalid`;
-        }
-      });
-
+      const errors = Validations.validAll(fields);
       this.setState({ errors });
       return errors;
     };

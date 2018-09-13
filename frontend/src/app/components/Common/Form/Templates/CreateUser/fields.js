@@ -8,17 +8,36 @@ export const fields = {
   name: {
     value: '',
     required: true,
-    validation: 'isEmpty',
+    rules: [
+      {
+        method: 'isEmpty',
+      },
+      {
+        method: 'maxLength',
+        args: { length: 5 },
+      },
+    ],
   },
   email: {
     value: '',
     required: true,
-    validation: 'isValidEmail',
+    rules: [
+      {
+        method: 'isEmpty',
+      },
+      {
+        method: 'isValidEmail',
+      },
+    ],
   },
   password: {
     value: '',
     required: true,
-    validation: 'isEmpty',
+    rules: [
+      {
+        method: 'isEmpty',
+      },
+    ],
   },
   phone: {
     value: '',

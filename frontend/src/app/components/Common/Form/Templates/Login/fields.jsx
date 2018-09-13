@@ -2,11 +2,11 @@ export const fields = {
   name: {
     value: '',
     required: true,
-    validation: 'isEmpty',
+    rules: [{ method: 'isEmpty' }],
   },
   password: {
     value: '',
     required: true,
-    validation: 'isEmpty',
+    rules: [{ method: 'isEmpty' }],
   },
 };

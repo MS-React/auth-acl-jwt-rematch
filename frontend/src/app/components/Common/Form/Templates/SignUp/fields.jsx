@@ -2,17 +2,17 @@ export const fields = {
   name: {
     value: '',
     required: true,
-    validation: 'isEmpty',
+    rules: [{ method: 'isEmpty' }],
   },
   email: {
     value: '',
     required: true,
-    validation: 'isValidEmail',
+    rules: [{ method: 'isValidEmail' }],
   },
   password: {
     value: '',
     required: true,
-    validation: 'isEmpty',
+    rules: [{ method: 'isEmpty' }],
   },
   phone: {
     value: '',
