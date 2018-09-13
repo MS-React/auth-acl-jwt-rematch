@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 
 const DEFAULT_USER_MODAL_LABELS = {
   confirmButtonText: 'Save',
@@ -52,7 +53,7 @@ const CrudHOC = CrudComponent => (
     }
 
     componentWillReceiveProps({ selectedItem: newItem }) {
-      if (JSON.stringify(this.props.selectedItem) !== JSON.stringify(newItem)) {
+      if (!isEqual(this.props.selectedItem, newItem)) {
         this.setState({
           selectedItem: {
             ...newItem,
