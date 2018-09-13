@@ -23,11 +23,16 @@ const Users = (state = initialState, action) => {
           action.user,
           ...state.users.filter(user => user.id !== action.user.id),
         ],
+        selectedUser: action.user,
       };
     case ACTION_TYPE.USERS.UPDATE.ERROR:
       return { ...state, error: action.error };
     case ACTION_TYPE.USERS.DELETE.OK:
-      return { ...state, users: state.users.filter(user => user.id !== action.id) };
+      return {
+        ...state,
+        selectedUser: {},
+        users: state.users.filter(user => user.id !== action.id),
+      };
     case ACTION_TYPE.USERS.DELETE.ERROR:
       return { ...state, error: action.error };
     case ACTION_TYPE.USERS.SELECT:

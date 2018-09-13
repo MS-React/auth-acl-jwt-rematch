@@ -9,6 +9,7 @@ import ActionButtons from './ActionButtons';
 
 export default class CrudTable extends React.PureComponent {
   static propTypes = {
+    selectedItem: PropTypes.object.isRequired,
     selectEntity: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
     form: PropTypes.any.isRequired,
@@ -18,6 +19,7 @@ export default class CrudTable extends React.PureComponent {
     create: PropTypes.func.isRequired,
     update: PropTypes.func.isRequired,
     delete: PropTypes.func.isRequired,
+    get: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -26,10 +28,13 @@ export default class CrudTable extends React.PureComponent {
 
   state = {
     selectedRow: [],
-    selectedItem: {},
   };
 
-  onConfirm = (type = 'add', user) => {
+  componentDidMount() {
+    this.props.get();
+  }
+
+  onConfirm = (type = 'add', entity) => {
     let action = () => {};
 
     switch (type) {
@@ -46,18 +51,17 @@ export default class CrudTable extends React.PureComponent {
         break;
     }
 
-    return action(user);
+    return action(entity);
   }
 
   setSelectedRow = (entity) => {
-    console.log('selected', entity);
     this.setState({
       selectedRow: [entity.id],
-      selectedItem: entity,
     }, () => {
       this.props.selectEntity(entity);
     });
   };
+
 
   render() {
     const {
@@ -66,9 +70,9 @@ export default class CrudTable extends React.PureComponent {
       formFields,
       data,
       tableColumns,
+      selectedItem,
     } = this.props;
 
-    const pagination = paginationFactory();
     const selectRow = {
       mode: 'radio',
       clickToSelect: true,
@@ -76,7 +80,7 @@ export default class CrudTable extends React.PureComponent {
       selected: this.state.selectedRow,
       onSelect: this.setSelectedRow,
     };
-    console.log(selectRow);
+    const pagination = paginationFactory();
 
     return (
       <div className="container">
@@ -89,7 +93,7 @@ export default class CrudTable extends React.PureComponent {
               <ActionButtons
                 form={form}
                 formFields={formFields}
-                selectedItem={this.state.selectedItem}
+                selectedItem={selectedItem}
                 onConfirm={this.onConfirm}
               />
             </div>

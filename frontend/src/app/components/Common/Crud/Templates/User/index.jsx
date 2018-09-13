@@ -17,52 +17,57 @@ const columns = [{
   text: 'Phone Number',
 }];
 
-class CrudUserTable extends React.PureComponent {
-  static propTypes = {
-    get: PropTypes.func.isRequired,
-    select: PropTypes.func.isRequired,
-    create: PropTypes.func.isRequired,
-    update: PropTypes.func.isRequired,
-    delete: PropTypes.func.isRequired,
-    users: PropTypes.array,
-  }
+const CrudUserTable = ({
+  select,
+  get,
+  create,
+  update,
+  deleteUsers,
+  users,
+  selectedItem,
+}) => (
+  <CrudTable
+    key="user-crud-table"
+    title="Users List"
+    form={UsersForm}
+    formFields={fields}
+    data={users}
+    tableColumns={columns}
+    selectEntity={select}
+    selectedItem={selectedItem}
+    update={update}
+    create={create}
+    delete={deleteUsers}
+    get={get}
+  />
+);
 
-  static defaultProps = {
-    users: [],
-  };
+CrudUserTable.propTypes = {
+  select: PropTypes.func.isRequired,
+  get: PropTypes.func.isRequired,
+  create: PropTypes.func.isRequired,
+  update: PropTypes.func.isRequired,
+  deleteUsers: PropTypes.func.isRequired,
+  users: PropTypes.array,
+  selectedItem: PropTypes.object,
+};
 
-  componentDidMount() {
-    this.props.get();
-  }
-
-  render() {
-    return (
-      <CrudTable
-        key="user-crud-table"
-        title="Users List"
-        form={UsersForm}
-        formFields={fields}
-        data={this.props.users}
-        tableColumns={columns}
-        selectEntity={this.props.select}
-        update={this.props.update}
-        create={this.props.create}
-        delete={this.props.delete}
-      />
-    );
-  }
-}
+CrudUserTable.defaultProps = {
+  users: [],
+  selectedItem: {},
+};
 
 const mapStateToProps = state => ({
   users: state.Users.users,
+  selectedItem: state.Users.selectedUser,
 });
 
 const mapDispatchToProps = dispatch => ({
-  get: () => dispatch(Actions.Users.getUsers({ page: 0, limit: 15 })),
   select: user => dispatch(Actions.Users.selectUser(user)),
+  get: () => dispatch(Actions.Users.getUsers({ page: 0, limit: 35 })),
   create: user => dispatch(Actions.Users.createUser(user)),
   update: user => dispatch(Actions.Users.updateUser(user)),
-  delete: user => dispatch(Actions.Users.deleteUser(user)),
+  deleteUsers: user => dispatch(Actions.Users.deleteUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CrudUserTable);

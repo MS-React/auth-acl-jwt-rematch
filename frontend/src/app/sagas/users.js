@@ -41,10 +41,10 @@ export function* updateUser(action) {
 export function* deleteUser(action) {
   try {
     yield call(apiService.deleteOne, { entity: 'users', _id: action.user.id });
-    yield put(Actions.Users.updateUserOk(action.user.id));
+    yield put(Actions.Users.deleteUserOk(action.user.id));
     toastr.success('User Deleted', 'Successfully');
   } catch (e) {
-    yield put(Actions.Users.updateUserError(e.response));
+    yield put(Actions.Users.deleteUserError(e.response));
     throw e;
   }
 }
