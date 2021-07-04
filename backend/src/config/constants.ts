@@ -32,6 +32,16 @@ export default {
     subscribeKey: env.PUBNUB_SUBSCRIBE_KEY,
     secretKey: env.PUBNUB_SECRET_KEY
   },
+  JWT: {
+    secretKey: env.JWT_SECRET_KEY,
+    config: {
+      expiresIn: 3600
+    }
+  },
+  MAIL_SERVICE: {
+    user: env.GMAIL_USER,
+    password: env.GMAIL_PASSWORD
+  },
   errorTypes: {
     db: { statusCode: 500, name: 'Internal Server Error', message: 'database error' },
     validation: { statusCode: 400, name: 'Bad Request', message: 'validation error' },

@@ -50,7 +50,7 @@ export abstract class BaseRepository<EntityType> implements IBaseRepository<Enti
 
   public async findOne<T>(where: any, include = this.getInclude): Promise<EntityType> {
     const res = await this.entityModel.model.findOne({ where, include });
-    if (!res) throw new ApiError(constants.errorTypes.notFound);
+    if (!res) return null;
     return new this.formatter(res);
   }
 

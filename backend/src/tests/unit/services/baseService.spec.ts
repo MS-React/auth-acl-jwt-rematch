@@ -34,6 +34,12 @@ describe('BaseService', () => {
     expect(res).to.have.property('_id');
   });
 
+  it('should login', async () => {
+    const res = await service.login(generateUserModel());
+    expect(res).to.have.property('name');
+    expect(res).to.have.property('password');
+  });
+
   it('should create', async () => {
     const model = generateUserModel();
     const res = await service.create(model);

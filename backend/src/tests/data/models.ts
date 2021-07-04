@@ -9,6 +9,7 @@ export const generateMockUUID = (): string => {
 export const generateUserModel = (): Models.IUserModel => ({
   email: generate(20),
   name: generate(20),
+  password: generate(20),
   phone: generate(20),
   skypeId: generate(20)
 });

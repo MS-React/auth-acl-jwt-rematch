@@ -2,7 +2,6 @@ import * as express from 'express';
 import * as swaggerUi from 'swagger-ui-express';
 import * as bodyParser from 'body-parser';
 import * as morgan from 'morgan';
-import { config as AWSConfig } from 'aws-sdk';
 
 import constants from './constants';
 import { ErrorHandler } from './ErrorHandler';
@@ -17,7 +16,6 @@ export class Server {
   private readonly port: number = constants.port;
 
   constructor() {
-    AWSConfig.update({ accessKeyId: constants.AWS.accessKeyId, secretAccessKey: constants.AWS.secretAccessKey });
     this.app.use(this.allowCors);
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(bodyParser.json());
